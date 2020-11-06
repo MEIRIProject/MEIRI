@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.meiri.jsp.member.model.vo.*"%>
+    pageEncoding="UTF-8" import="com.meiri.jsp.member.model.vo.*
+    							,com.meiri.jsp.product.model.vo.*,
+    							java.util.* "%>
 <%
    Member m = (Member)session.getAttribute("member");
+   ArrayList<Product> plist = (ArrayList<Product>)request.getAttribute("plist");	
 %>    
 <!DOCTYPE html>
 <html lang="en">
@@ -291,6 +294,7 @@
 			<h2 class="nino-sectionHeading">
 				LED 거실등
 			</h2>
+			<% for(Product p : plist){ %>
 			<div class="sectionProduct">
 				<div class="row nino-hoverEffect">
 					<div class="col-md-3 col-sm-3" onclick="location.href='/meiri/views/product/productDetail.jsp';">
