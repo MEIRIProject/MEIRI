@@ -294,92 +294,25 @@
 			<h2 class="nino-sectionHeading">
 				LED 거실등
 			</h2>
-			<% for(Product p : plist){ %>
 			<div class="sectionProduct">
+			<% for(Product p : plist){ %>
 				<div class="row nino-hoverEffect">
-					<div class="col-md-3 col-sm-3" onclick="location.href='/meiri/views/product/productDetail.jsp';">
+					<div class="col-md-3 col-sm-3 productDetail" onclick="location.href='/meiri/views/product/productDetail.jsp';">
 						<div class="item product">
 							<a class="overlay" href="#">
 								<span class="content">
-									제품 1
+									<%= p.getPname() %>
 								</span>
-								<img src="resources/images/meiri1.jpg" alt="">
+								<%-- <img src="resources/productUploadFiles/<%= p.get %>" alt=""> --%>
 							</a>
 						</div>
 					</div>
-					<div class="col-md-3 col-sm-3" >
-						<div class="item product">
-							<a class="overlay" href="#">
-								<span class="content">
-									제품 2
-								</span>
-								<img src="resources/images/meiri2.jpg" alt="">
-							</a>
-						</div>
-					</div>
-					<div class="col-md-3 col-sm-3">
-						<div class="item product">
-							<a class="overlay" href="#">
-								<span class="content">
-									제품3
-								</span>
-								<img src="resources/images/meiri3.jpg" alt="">
-							</a>
-						</div>
-					</div>	
-					<div class="col-md-3 col-sm-3">
-						<div class="item product">
-							<a class="overlay" href="#">
-								<span class="content">
-									제품 4
-								</span>
-								<img src="resources/images/meiri4.jpg" alt="">
-							</a>
-						</div>
-					</div>
-				</div>
+				<input type="hidden" value="<%=p.getPcode()%>" />
+				</div>	
+			<%} %>		
+					
+				<div class="row nino-hoverEffect">
 				
-				<div class="row nino-hoverEffect">
-					<div class="col-md-3 col-sm-3">
-						<div class="item product">
-							<a class="overlay" href="#">
-								<span class="content">
-									제품 5
-								</span>
-								<img src="resources/images/meiri5.jpg" alt="">
-							</a>
-						</div>
-					</div>
-					<div class="col-md-3 col-sm-3" >
-						<div class="item product">
-							<a class="overlay" href="#">
-								<span class="content">
-									제품 6
-								</span>
-								<img src="resources/images/meiri6.jpg" alt="">
-							</a>
-						</div>
-					</div>
-					<div class="col-md-3 col-sm-3">
-						<div class="item product">
-							<a class="overlay" href="#">
-								<span class="content">
-									제품 7
-								</span>
-								<img src="resources/images/meiri7.jpg" alt="">
-							</a>
-						</div>
-					</div>	
-					<div class="col-md-3 col-sm-3">
-						<div class="item product">
-							<a class="overlay" href="#">
-								<span class="content">
-									제품 8
-								</span>
-								<img src="resources/images/meiri8.jpg" alt="">
-							</a>
-						</div>
-					</div>
 				</div>
 				
 				
@@ -388,7 +321,15 @@
 			</div>
 		</div>		
 	</section><!--/#nino-story-->
-	
+	 <script>
+                  /* 제품 선택시 제품 상세보기로 넘어가기 */
+                  $(function(){
+                     $(".productDetail").click(function(){
+                        var pcode = $(this).parent().find("input").val();
+                        location.href="<%=request.getContextPath()%>/pSelect.pd?pcode="+ pcode;
+                        });
+                     });
+                  </script>
 	
 	
 
