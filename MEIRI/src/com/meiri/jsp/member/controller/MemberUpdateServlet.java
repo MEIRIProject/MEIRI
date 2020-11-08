@@ -15,7 +15,7 @@ import com.meiri.jsp.member.model.vo.Member;
 /**
  * Servlet implementation class MemberUpdateServlet
  */
-@WebServlet("/Update.me")
+@WebServlet("/mUpdate.me")
 public class MemberUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

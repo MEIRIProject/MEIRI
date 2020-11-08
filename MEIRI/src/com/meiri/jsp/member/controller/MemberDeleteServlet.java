@@ -15,7 +15,7 @@ import com.meiri.jsp.member.model.vo.Member;
 /**
  * Servlet implementation class MemberDeleteServlet
  */
-@WebServlet("/Delete.me")
+@WebServlet("/mDelete.me")
 public class MemberDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
