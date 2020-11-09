@@ -5,13 +5,11 @@ import java.sql.Date;
 import java.util.ArrayList;
 
 
-import com.meiri.jsp.review.model.vo.productFile;
-
 public class Review implements Serializable{
 	
 	private static final long serialVersionUID = 77L;
 	
-	private ArrayList<productFile> productFiles;
+	private ArrayList<reviewFile> productFiles;
 	
 	private int rcode;
 	private String rcontent;
@@ -25,7 +23,7 @@ public class Review implements Serializable{
 		// TODO Auto-generated constructor stub
 	}
 
-	public Review(ArrayList<productFile> productFiles, int rcode, String rcontent, Date rdate, String userid, int pcode,
+	public Review(ArrayList<reviewFile> productFiles, int rcode, String rcontent, Date rdate, String userid, int pcode,
 			int fcode) {
 		super();
 		this.productFiles = productFiles;
@@ -43,11 +41,11 @@ public class Review implements Serializable{
 				+ rdate + ", userid=" + userid + ", pcode=" + pcode + ", fcode=" + fcode + "]";
 	}
 
-	public ArrayList<productFile> getProductFiles() {
+	public ArrayList<reviewFile> getProductFiles() {
 		return productFiles;
 	}
 
-	public void setProductFiles(ArrayList<productFile> productFiles) {
+	public void setProductFiles(ArrayList<reviewFile> productFiles) {
 		this.productFiles = productFiles;
 	}
 

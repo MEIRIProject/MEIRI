@@ -12,7 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.meiri.jsp.product.model.service.ProductService;
 import com.meiri.jsp.product.model.vo.Product;
 import com.meiri.jsp.review.model.service.ReviewService;
-import com.meiri.jsp.review.model.vo.Review;
+
+import com.meiri.jsp.review.model.vo.ReviewView;
 
 /**
  * Servlet implementation class productSelectOne
@@ -37,15 +38,15 @@ public class productSelectOne extends HttpServlet {
 		
 		Product p = new ProductService().selectOne(pcode);
 		System.out.println(p);
-		ArrayList<Review> rlist = new ReviewService().selectList(pcode);
-		System.out.println("rlist = " + rlist);
+		ArrayList<ReviewView> rvlist = new ReviewService().selectList(pcode);
+		System.out.println("rlist = " + rvlist);
 		String page = "";
 		
 		
 		
 		if(p != null) {
 			request.setAttribute("product", p);
-			request.setAttribute("rlist", rlist);
+			request.setAttribute("rvlist", rvlist);
 			
 			page = "views/product/productDetail.jsp";
 		}else {

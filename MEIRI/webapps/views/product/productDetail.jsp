@@ -8,7 +8,7 @@
 	Member m = (Member) session.getAttribute("member");
 	
 	Product p = (Product)request.getAttribute("product");
-	ArrayList<Review> rlist = (ArrayList<Review>)request.getAttribute("rlist");
+	ArrayList<ReviewView> rvlist = (ArrayList<ReviewView>)request.getAttribute("rvlist");
 
 %>
 
@@ -349,7 +349,7 @@ form hr {
 								style="margin: 0;" method="post" enctype="multipart/form-data">
 								<!-- 파일, 상품 번호, 리뷰 내용, 회원 번호 넘겨줘야함 -->
 								<input type="hidden" name="userId" value="<%=m.getUserId()%>">
-								<%--    <input type="hidden" name="bno" value="<%= b.getBno() %>" /> --%>
+								<input type="hidden" name="pcode" value="<%= p.getPcode() %>" />
 
 
 								<textarea name="rcontent" id="rcontent" cols="95" rows="10"
@@ -373,11 +373,13 @@ form hr {
 		</div>
 		
 		<div>
-			<% for(int i = 0 ; i < rlist.size(); i++){%>
-				<p><%= rlist.get(i).getUserid()%></p>
-				<p><%=rlist.get(i).getRcontent()%></p>
-				<p><%=rlist.get(i).getRdate()%></p>
-				<p><%=rlist.get(i).getFcode()%></p>
+			<% for(int i = 0 ; i < rvlist.size(); i++){%>
+				<p><%=rvlist.get(i).getUserid()%></p>
+				<p><%=rvlist.get(i).getRcontent()%></p>
+				<p><%=rvlist.get(i).getRdate()%></p>
+				<p><%=rvlist.get(i).getPcode()%></p>
+				<p><%=rvlist.get(i).getChangename()%></p>
+				
 				
 			<% } %>
 		</div>
