@@ -96,14 +96,14 @@ public class reviewInsertServlet extends HttpServlet {
                rF.setOriginname(originNames);
                rF.setChangename(changeNames);
                
-               
+         
             
             ReviewService rs = new ReviewService();
             
             int result = rs.insertReview(r, rF);
             
             if( result > 0) {
-               response.sendRedirect("index.jsp");
+               response.sendRedirect("pSelect.pd?pcode=" + r.getPcode());
             } else {
                request.setAttribute("exception", new Exception("사진 추가 에러 !"));
                request.setAttribute("error-msg", "게시글 저장 실패 ");
