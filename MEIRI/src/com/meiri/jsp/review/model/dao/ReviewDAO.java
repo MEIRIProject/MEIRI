@@ -1,20 +1,19 @@
 package com.meiri.jsp.review.model.dao;
 
+import static com.meiri.jsp.common.JDBCTemplate.close;
+
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
-
 import com.meiri.jsp.review.model.vo.Review;
-
-
-import static com.meiri.jsp.common.JDBCTemplate.close;
 
 public class ReviewDAO {
 	
@@ -62,7 +61,8 @@ public class ReviewDAO {
 		return result;
 	}
 
-	public ArrayList<Review> selectList(Connection con) {
+	public ArrayList<Review> selectList(Connection con, int pcode) {
+		
 		ArrayList<Review> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -72,17 +72,22 @@ public class ReviewDAO {
 		try {
 			pstmt = con.prepareStatement(sql);
 			
+			pstmt.setInt(1, pcode);
+			
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
-				
 				Review r = new Review();
 				
-				r.setUserid(rset.getString("userId"));
+				
+				r.setRcode(rset.getInt("rcode"));
 				r.setRcontent(rset.getString("rcontent"));
+				r.setRdate(rset.getDate("rdate"));
+				r.setUserid(rset.getString("userId"));
+				r.setPcode(rset.getInt("pcode"));
+				r.setFcode(rset.getInt("fcode"));
 				
 				list.add(r);
-				
 			}
 			
 		} catch (SQLException e) {
@@ -101,5 +106,7 @@ public class ReviewDAO {
 		
 		
 	}
+
+	
 
 }

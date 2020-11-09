@@ -5,7 +5,7 @@
 <%
 	Member m = (Member) session.getAttribute("member");
 	
-	ArrayList<Review> 
+
 %>
 
 
@@ -362,7 +362,7 @@ form hr {
 		</div>
 
 		<section class="product_review">
-			<div class="container">
+		<%-- 	<div class="container">
 				      <!-- 리뷰 조회하기  -->
                   
                            <%
@@ -413,7 +413,7 @@ form hr {
                               }
                            %>
 
-			</div>
+			</div> --%>
 		</section>
 	</div>
 

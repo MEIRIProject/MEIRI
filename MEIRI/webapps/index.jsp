@@ -1,10 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="com.meiri.jsp.member.model.vo.*
-    							,com.meiri.jsp.product.model.vo.*,
+    							,com.meiri.jsp.product.model.vo.*,	
     							java.util.* "%>
 <%
    Member m = (Member)session.getAttribute("member");
-   ArrayList<Product> plist = (ArrayList<Product>)request.getAttribute("plist");	
+   ArrayList<ProductView> pvlist = (ArrayList<ProductView>)request.getAttribute("pvlist");	
+
+
 %>    
 <!DOCTYPE html>
 <html lang="en">
@@ -16,6 +18,7 @@
    <meta name="copyright" content="ninodezign.com"> 
    <title>MEIRI</title>
    
+   <script type="text/javascript" src="resources/js/jquery-3.5.1.js"></script>   
    <!-- favicon -->
     <link rel="shortcut icon" href="resources/images/meiri-logo2.png">
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="resources/images/ico/apple-touch-icon-144-precomposed.png">
@@ -49,7 +52,7 @@
                   <% } else if( m != null && m.getUserId().equals("admin")){ %>
                   <ul> 
                      <li><%= m.getUserName() %></li>
-                     <li><div id="userLoginBtn" onclick="location.href='/meiri/views/mypage/mypage.jsp';">관리자 페이지</div></li>&nbsp;&nbsp;
+                     <li><div id="userLoginBtn" onclick="location.href='/meiri/views/admin/adminPage.jsp';">관리자 페이지</div></li>&nbsp;&nbsp;
                      <li><div id="userJoinBtn" onclick="location.href='/meiri/logout.me';">로그아웃</div></li>
                   </ul>
                   <% } else {%>
@@ -295,15 +298,15 @@
 				LED 거실등
 			</h2>
 			<div class="sectionProduct">
-			<% for(Product p : plist){ %>
+			<% for(ProductView p : pvlist){ %>
 				<div class="row nino-hoverEffect">
-					<div class="col-md-3 col-sm-3 productDetail" onclick="location.href='/meiri/views/product/productDetail.jsp';">
+					<div class="col-md-3 col-sm-3" id="productDetail">
 						<div class="item product">
 							<a class="overlay" href="#">
 								<span class="content">
 									<%= p.getPname() %>
 								</span>
-								<%-- <img src="resources/productUploadFiles/<%= p.get %>" alt=""> --%>
+									<img src="/meiri/resources/productUploadFiles/<%= p.getChangename() %>" alt="">
 							</a>
 						</div>
 					</div>
@@ -324,7 +327,7 @@
 	 <script>
                   /* 제품 선택시 제품 상세보기로 넘어가기 */
                   $(function(){
-                     $(".productDetail").click(function(){
+                     $("#productDetail").click(function(){
                         var pcode = $(this).parent().find("input").val();
                         location.href="<%=request.getContextPath()%>/pSelect.pd?pcode="+ pcode;
                         });
@@ -998,7 +1001,7 @@
    <script type="text/javascript" src="resources/js/jquery.mCustomScrollbar.concat.min.js"></script>
    <script type="text/javascript" src="resources/js/unslider-min.js"></script>
    <script type="text/javascript" src="resources/js/template.js"></script>
-
+	
    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
    <!--[if lt IE 9]>
      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>

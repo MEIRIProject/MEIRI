@@ -17,13 +17,13 @@ public class ReviewService {
 	
 
 
-	public ArrayList<Review> selectList() {
+	public ArrayList<Review> selectList(int pcode) {
 		con = getConnection();
 		
-		ArrayList<Review> list = rDAO.selectList(con);
+		ArrayList<Review> list = rDAO.selectList(con, pcode);
 		
 		close(con);
-		return null;
+		return list;
 	}
 	
 
@@ -49,6 +49,11 @@ public class ReviewService {
 		return result;
 		
 	}
+
+
+
+
+	
 
 	
 	
