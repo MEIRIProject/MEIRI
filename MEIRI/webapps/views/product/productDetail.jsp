@@ -348,9 +348,11 @@ form hr {
 							<form action="<%=request.getContextPath()%>/insert.re"
 								style="margin: 0;" method="post" enctype="multipart/form-data">
 								<!-- 파일, 상품 번호, 리뷰 내용, 회원 번호 넘겨줘야함 -->
+								
+								
 								<input type="hidden" name="userId" value="<%=m.getUserId()%>">
 								<input type="hidden" name="pcode" value="<%= p.getPcode() %>" />
-
+							
 
 								<textarea name="rcontent" id="rcontent" cols="95" rows="10"
 									value placeholder="내용을 입력해주세요." style="resize: none;"></textarea>

@@ -3,47 +3,47 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>관리자 페이지</title>
-	<link rel="stylesheet" href="../../resources/css/all.min.css"><!-- https://fontawesome.com/ -->
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>관리자 페이지</title>
+   <link rel="stylesheet" href="../../resources/css/all.min.css"><!-- https://fontawesome.com/ -->
     <link rel="stylesheet" href="../../resources/css/bootstrap.min.css">
     <link rel="stylesheet" href="../../resources/css/templatemo-xtra-blog.css">
     
     <script src="../../resources/js/jquery.min.js"></script>
     <script src="../../resources/js/templatemo-script.js"></script>
-	<script>
-		function notice(){
-			location.href='/meiri/noticeList.no';
-		}
-		
-		function product(){
-			location.href='/meiri/productList.pr';
-		}
-		
-		function member(){
-			location.href='/meiri/memberList.me';
-		}
-		
-		function review(){
-			location.href='/meiri/reviewList.re';
-		}
-		
-		function inquiry(){
-			location.href='/meiri/inquiryList.in';
-		}
-		
-		function question(){
-			location.href='/meiri/questionList.qu';
-		}
-		
-	</script>
-	
-	
-	
+   <script>
+      function notice(){
+         location.href='/meiri/noticeList.no';
+      }
+      
+      function product(){
+         location.href='/meiri/productList.pr';
+      }
+      
+      function member(){
+         location.href='/meiri/memberList.me';
+      }
+      
+      function review(){
+         location.href='/meiri/reviewList.re';
+      }
+      
+      function inquiry(){
+         location.href='/meiri/inquiryList.in';
+      }
+      
+      function question(){
+         location.href='/meiri/questionList.qu';
+      }
+      
+   </script>
+   
+   
+   
 </head>
 <body>
-	<header class="tm-header" id="tm-header">
+   <header class="tm-header" id="tm-header">
         <div class="tm-header-wrapper">
             <button class="navbar-toggler" type="button" aria-label="Toggle navigation">
                 <i class="fas fa-bars"></i>
@@ -54,8 +54,8 @@
             </div>
             <nav class="tm-nav" id="tm-nav">            
                 <ul>
-                	<!-- a 태그를 button 으로 바꿈 -->
-                	<!-- 첫 li태그 class에 active 지움 -->
+                   <!-- a 태그를 button 으로 바꿈 -->
+                   <!-- 첫 li태그 class에 active 지움 -->
                     <li class="tm-nav-item"><button onclick="notice()" class="tm-nav-link">
                         <i class="fas fa-home"></i>
                         공지사항
@@ -273,7 +273,7 @@
             </footer>
         </main>
     </div>
-   	
+      
 
 </body>
 </html>
