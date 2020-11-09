@@ -48,7 +48,7 @@ public class MemberDeleteServlet extends HttpServlet {
 			
 			session.invalidate();
 			
-			response.sendRedirect("index.jsp");
+			response.sendRedirect("memberDelete.jsp"); 
 			
 		} catch(MemberException e) {
 			request.setAttribute("error-msg", "회원 탈퇴 수행 중 에러 발생!");
