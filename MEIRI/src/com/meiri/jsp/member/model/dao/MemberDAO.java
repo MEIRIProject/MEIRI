@@ -1,5 +1,6 @@
 package com.meiri.jsp.member.model.dao;
 
+
 import static com.meiri.jsp.common.JDBCTemplate.close;
 
 import java.io.FileNotFoundException;
@@ -9,7 +10,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Properties;
 
 import com.meiri.jsp.common.exception.MemberException;
@@ -211,6 +211,90 @@ public class MemberDAO {
       
       return result;
    }
+   
+   public Member findId(Connection con, Member m) throws MemberException {
+         Member result = null;
+         PreparedStatement pstmt = null;
+         ResultSet rset = null;
+         
+         try {
+            String sql = prop.getProperty("findId");
+            
+            pstmt = con.prepareStatement(sql);
+            
+            pstmt.setString(1, m.getUserName());
+            pstmt.setString(2, m.getEmail());
+            rset = pstmt.executeQuery();
+            
+            System.out.println("dao : rset" + rset);
+            
+            if(rset.next()) {
+               result = new Member();
+               
+               result.setUserName(m.getUserName());
+               result.setEmail(m.getEmail());
+               
+               result.setUserId(rset.getString("userId"));
+               
+               System.out.println("udao : " + result);
+            }
+            
+         } catch (Exception e) {
+            throw new MemberException(e.getMessage());
+         } finally {
+            close(rset);
+            close(pstmt);
+         }
+         
+         return result;
+   }
+
+public Member findPwd(Connection con, String userName, String email, String userId) throws MemberException {
+   Member m = null;
+   PreparedStatement pstmt = null;
+   ResultSet rset = null;
+   
+   String sql = prop.getProperty("findPwd");
+   
+   try {
+      pstmt = con.prepareStatement(sql);
+      
+      pstmt = setString(1, userName);
+      pstmt = setString(2, email);
+      pstmt = setString(3, userId);
+      
+      rset = pstmt.executeQuery();
+      
+      System.out.println("mdao findPwd");
+      
+      if(rset.next()) {
+         m = new Member();
+         
+         m.setUserName(userName);
+         m.setEmail(email);
+         m.setUserId(userId);
+         
+         m.setPassWord(rset.getNString("PassWord"));
+         
+         System.out.println("mdao findpwd : " + m);
+      }
+      
+   } catch (SQLException e){
+      throw new MemberException(e.getMessage());   
+   } finally {
+      close(rset);
+      close(pstmt);
+   }
+   
+   return m;
+}
+
+private PreparedStatement setString(int i, String userName) {
+   // TODO Auto-generated method stub
+   return null;
+}
+
+
    
    
    

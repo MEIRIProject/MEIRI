@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" isErrorPage="true"%>
 <%
@@ -37,4 +38,5 @@ span {
 		이상이 없을 시 부서 담당자에게 연락하시기 바랍니다.</h4>
 	</div>
 </body>
+
 </html>

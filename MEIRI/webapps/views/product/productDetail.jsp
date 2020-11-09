@@ -1,11 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"
 	import="com.meiri.jsp.member.model.vo.*,
-    								com.meiri.jsp.review.model.vo.*"%>
+    								com.meiri.jsp.review.model.vo.*,
+    								com.meiri.jsp.product.model.vo.*,
+    								java.util.*"%>
 <%
 	Member m = (Member) session.getAttribute("member");
 	
-	ArrayList<Review> 
+	Product p = (Product)request.getAttribute("product");
+	ArrayList<ReviewView> rvlist = (ArrayList<ReviewView>)request.getAttribute("rvlist");
+
 %>
 
 
@@ -15,7 +19,7 @@
 <head>
 <meta charset="UTF-8">
 <title>ProductDetail</title>
-<script src="../../resources/js/jquery-3.5.1.min.js"></script>
+<script src="/meiri/resources/js/jquery-3.5.1.min.js"></script>
 
 <style>
 h2 {
@@ -255,11 +259,18 @@ form hr {
 						</ul>
 					</div>
 					<div class="proudct_specs" style="float: right; width: 50%">
-						<h2>LED 루미스 욕실등 30W</h2>
+						<h2><%= p.getPname() %></h2>
 						<h3>
-							제품규격 : W1,050 x H3,300 <br> 사용램프 : E26 EL 45W, LED 30W
+							<%= p.getPtitle() %>
 						</h3>
-						<p>타입 A : 120W / 타입 B : 160W</p>
+						<p>타입 A : <%= p.getPtypea() %> / 
+							<% if(p.getPtypeb() != null) {%>
+								타입 B: <%= p.getPtypeb() %>
+							<% } %>
+							<% if(p.getPtypec() != null) {%>
+								타입 C: <%= p.getPtypec() %>
+							<% } %>
+						</p>
 						<form action="">
 							<hr />
 							<div class="option" style="display: flex; width: 600px;">
@@ -276,8 +287,8 @@ form hr {
 									<select name="color" id="color">
 										<option value="블랙">블랙</option>
 										<option value="화이트">화이트</option>
-										<option value="골드">골드(+10,000)</option>
-										<option value="로즈골드">로즈골드(+10,000)</option>
+										<option value="골드">골드</option>
+										<option value="로즈골드">로즈골드</option>
 									</select>
 								</div>
 								<div class="quantity" id="120000">
@@ -291,7 +302,7 @@ form hr {
 								style="display: inline-block; width: 600px;">
 								<div class="total_price" style="float: left;">
 									<h4>가격</h4>
-									<span class="price">120,000원</span>
+									<span class="price"><%= p.getPrice() %>원</span>
 									<!-- 상품 등록 시 .quantity클래스 아이디로 받고 여기에서 get 필요할 듯 -->
 								</div>
 								<div class="order_now" style="float: right; margin-right: 25px;">
@@ -337,9 +348,11 @@ form hr {
 							<form action="<%=request.getContextPath()%>/insert.re"
 								style="margin: 0;" method="post" enctype="multipart/form-data">
 								<!-- 파일, 상품 번호, 리뷰 내용, 회원 번호 넘겨줘야함 -->
+								
+								
 								<input type="hidden" name="userId" value="<%=m.getUserId()%>">
-								<%--    <input type="hidden" name="bno" value="<%= b.getBno() %>" /> --%>
-
+								<input type="hidden" name="pcode" value="<%= p.getPcode() %>" />
+							
 
 								<textarea name="rcontent" id="rcontent" cols="95" rows="10"
 									value placeholder="내용을 입력해주세요." style="resize: none;"></textarea>
@@ -360,61 +373,19 @@ form hr {
 				</div>
 			</div>
 		</div>
-
-		<section class="product_review">
-			<div class="container">
-				      <!-- 리뷰 조회하기  -->
-                  
-                           <%
-                              for (Review r : rlist) {
-                           %>
-                  <div class="review_list" style="width : 100%;  ">
-
-
-                        <div class="review_item">
-                           <div class="media" style="border-bottom : 1px solid #e2e2e2 ;margin-top: 2%;">
-                              <div class="media-body" style="margin : 2%; width : 30%; display: block;"  >
-                                 
-                                 <% for(int i = 1; i < 6 ; i++) {
-                                    if(i <= r.getR_star()) { %>
-                                    <i class="fa fa-star fa-2x"></i>
-                                 <% } else { %>
-                                 <i class="fa fa-star-o fa-2x"></i>
-                                 <% } } %>
-                                  <br /><br />
-                                 <h5>작성자 : <strong> <%=r.getU_id()%></strong> <br /></h5> 
-                                 <h5> <%=r.getR_date()%></h5>
-                              <div class="d-flex" >
-                                 <img width="25%"
-                                    src="/cosme/resources/img/product/single-product/user_icon.png"
-                                    alt="">
-                              </div>
-                              </div> 
-                              <br />
-                               <table style = "width : 70%; ">
-                                 <tr>
-                                    <td style="width : 30%; padding : 5% 0; "> 
-                                    <% if (r.getReviewfile() != null) { %>
-                                    <img style="width:100%;" id="reviewImg" src="/cosme/resources/ReviewUploadFiles/<%=r.getReviewfile()%>">
-                                    <% } else { %>
-                                    	<img width="100%" src="/cosme/resources/img/noimage.gif" alt="" />
-                                    <% } %>
-                                    </td>
-                                    <td style="padding : 5% 5%;"><i class="fa fa-quote-left fa 2x" aria-hidden="true"></i> &nbsp;&nbsp;
-                                    <%=r.getR_content()%>&nbsp;&nbsp;  <i class="fa fa-quote-right fa 2x" aria-hidden="true"></i> </td>
-                                 </tr>
-                              </table> 
-                              
-                               
-                           </div>
-                        </div>
-                     </div>
-                           <%
-                              }
-                           %>
-
-			</div>
-		</section>
+		
+		<div>
+			<% for(int i = 0 ; i < rvlist.size(); i++){%>
+				<p><%=rvlist.get(i).getUserid()%></p>
+				<p><%=rvlist.get(i).getRcontent()%></p>
+				<p><%=rvlist.get(i).getRdate()%></p>
+				<p><%=rvlist.get(i).getPcode()%></p>
+				<p><%=rvlist.get(i).getChangename()%></p>
+				
+				
+			<% } %>
+		</div>
+		
 	</div>
 
 	<!-- 사진 미리보기 -->
@@ -461,7 +432,7 @@ form hr {
 	});
 
 	// 상품 수량 및 총 가격 변경
-	var $quantity = $('.quantity'), $unitprice = $quantity.attr('id'), $qtyBtn = $quantity
+	var $quantity = $('.quantity'), $unitprice = <%= p.getPrice() %>, $qtyBtn = $quantity
 			.find('span'), $qtyInput = $quantity.find('input'), $targetTotal = $('.total_price .price');
 
 	/*

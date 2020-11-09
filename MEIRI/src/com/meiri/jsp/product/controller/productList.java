@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.meiri.jsp.product.model.service.ProductService;
 import com.meiri.jsp.product.model.vo.Product;
+import com.meiri.jsp.product.model.vo.ProductFilesList;
+import com.meiri.jsp.product.model.vo.ProductView;
 
 /**
  * Servlet implementation class productList
@@ -32,15 +34,15 @@ public class productList extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		ArrayList<Product> plist = new ArrayList<>();
+		ArrayList<ProductView> pvlist = new ArrayList<>();
 		ProductService ps = new ProductService();
 		
 		
+		pvlist = ps.productSelectList();
 		
+		System.out.println(pvlist);
+		request.setAttribute("pvlist", pvlist);
 		
-		
-		
-		request.setAttribute("plist", plist);
 		
 		String page = "";
 		page = "index.jsp";
