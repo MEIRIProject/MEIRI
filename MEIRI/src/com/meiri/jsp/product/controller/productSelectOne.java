@@ -36,9 +36,12 @@ public class productSelectOne extends HttpServlet {
 		int pcode = Integer.parseInt(request.getParameter("pcode"));
 		
 		Product p = new ProductService().selectOne(pcode);
+		System.out.println(p);
 		ArrayList<Review> rlist = new ReviewService().selectList(pcode);
-		
+		System.out.println("rlist = " + rlist);
 		String page = "";
+		
+		
 		
 		if(p != null) {
 			request.setAttribute("product", p);

@@ -17,13 +17,13 @@ import com.meiri.jsp.review.model.vo.Review;
 
 public class ReviewDAO {
 	
-	private Properties prop = null;
+	private Properties prop;
 	
 	public ReviewDAO() {
 		prop = new Properties();
 		
 		String filePath = ReviewDAO.class
-									  .getResource("config/review-sql.properties")
+									  .getResource("/config/review-sql.properties")
 									  .getPath();
 		
 		try {
@@ -68,7 +68,7 @@ public class ReviewDAO {
 		ResultSet rset = null;
 		
 		String sql = prop.getProperty("selectList");
-		
+		System.out.println("pcode = " + pcode);
 		try {
 			pstmt = con.prepareStatement(sql);
 			
@@ -78,7 +78,6 @@ public class ReviewDAO {
 			
 			while(rset.next()) {
 				Review r = new Review();
-				
 				
 				r.setRcode(rset.getInt("rcode"));
 				r.setRcontent(rset.getString("rcontent"));
