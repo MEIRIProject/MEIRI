@@ -108,8 +108,7 @@
       <div class="side_list">
         <a href="#" class="side_link">개인 정보 수정</a>
         <a href="#" class="side_link">작성한 리뷰 확인</a>
-        <a href="#" class="side_link">작성한 댓글 확인</a>
-        <a href="#" class="side_link">문의 내용 확인</a>
+        <a href="memberInquiryInsert.jsp" class="side_link">문의 내용 확인</a>
         <a href="#" class="side_link">장바구니</a>
         <a href="#" class="side_link">주문조회</a>
       </div>
@@ -117,9 +116,9 @@
    <!-- -------------------------------------------------------------- -->
 		
 	<div id="btn_group">	<!-- onclick 추가 -->
-		<button id="btn1" onclick="">F&A<br><span>자주묻는질문</span></button> 
-		<button id="btn2" onclick="">Q&A<br><span>질문과 답변</span></button>
-		<button id="btn3" onclick="">NOTICE<br><span>공지사항</span></button>  
+		<button id="btn1" onclick="location.href=''">F&A<br><span>자주묻는질문</span></button> 
+		<button id="btn2" onclick="location.href=''">Q&A<br><span>질문과 답변</span></button>
+		<button id="btn3" onclick="location.href=''">NOTICE<br><span>공지사항</span></button>  
 	</div>
 		
 	

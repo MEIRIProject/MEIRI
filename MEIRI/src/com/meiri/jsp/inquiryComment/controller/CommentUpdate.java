@@ -1,23 +1,27 @@
-package com.meiri.jsp.inquiry;
+package com.meiri.jsp.inquiryComment.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.jsp.boardComment.model.service.BoardCommentService;
+import com.kh.jsp.boardComment.model.vo.BoardComment;
+
 /**
- * Servlet implementation class MemberInquiryInsertServlet
+ * Servlet implementation class CommentUpdate
  */
-@WebServlet("/iInsert.bo")
-public class MemberInquiryInsertServlet extends HttpServlet {
+@WebServlet("/updateComment.co")
+public class CommentUpdate extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MemberInquiryInsertServlet() {
+    public CommentUpdate() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,8 +30,25 @@ public class MemberInquiryInsertServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		int cno = Integer.parseInt(request.getParameter("cno"));
+		int bno = Integer.parseInt(request.getParameter("bno"));
+		String content = request.getParameter("content");
+		
+		BoardComment bco = new BoardComment();
+		bco.setCno(cno);
+		bco.setCcontent(content);
+		
+		int result = new BoardCommentService().updateComment(bco);
+		
+		if( result > 0 ) {
+			response.sendRedirect("selectOne.bo?bno="+bno);
+		} else {
+			// 에러 페이지 전달
+			request.setAttribute("error-msg", "댓글 수정 실패!");
+			request.getRequestDispatcher("views/common/errorPage.jsp")
+			       .forward(request, response);
+		}
+		
 	}
 
 	/**
