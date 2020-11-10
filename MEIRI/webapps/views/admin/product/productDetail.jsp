@@ -4,13 +4,13 @@
 
 <% 
 	Product p = (Product)request.getAttribute("product"); 
-	ArrayList<ProductFile> fileList
-		= (ArrayList<ProductFile>)request.getAttribute("fileList");
+	ProductFile[] fileList
+		= (ProductFile[])request.getAttribute("fileList");
 	
 	ProductFile[] productfile = new ProductFile[5]; 
 	
 	for(int i = 0; i < 5; i++){
-		productfile[i] = fileList.get(i);
+		productfile[i] = fileList[i];
 	}
 	
 %>
@@ -123,7 +123,7 @@
 						<td>서브 이미지</td>
 						<td>
 							<div class="detailImgArea">
-							<% if (productfile[1].getChangename() != null) { %>
+							<% if (productfile[1] != null) { %>
 								<img width="100" height="100" id="detailImg1" class="detailImg" src="<%= request.getContextPath() %>/resources/productUploadFiles/<%= productfile[1].getChangename()%>">
 								<a href="<%= request.getContextPath() %>/resources/productUploadFiles/<%= productfile[1].getChangename()%>" download="<%= productfile[1].getOriginname()%>"><button type="button">다운로드</button></a>
 							<% } else { %>
@@ -133,7 +133,7 @@
 						</td>
 						<td>
 							<div class="detailImgArea">
-							<% if (productfile[2].getChangename() != null) { %>
+							<% if (productfile[2] != null) { %>
 								<img width="100" height="100" id="detailImg2" class="detailImg" src="<%= request.getContextPath() %>/resources/productUploadFiles/<%= productfile[2].getChangename()%>">
 								<a href="<%= request.getContextPath() %>/resources/productUploadFiles/<%= productfile[2].getChangename()%>" download="<%= productfile[2].getOriginname()%>">
 									<button type="button">다운로드</button>
@@ -145,7 +145,7 @@
 						</td>
 						<td>
 							<div class="detailImgArea">
-							<% if (productfile[3].getChangename() != null) { %>
+							<% if (productfile[3] != null) { %>
 								<img width="100" height="100" id="detailImg3" class="detailImg" src="<%= request.getContextPath() %>/resources/productUploadFiles/<%= productfile[3].getChangename()%>">
 								<a href="<%= request.getContextPath() %>/resources/productUploadFiles/<%= productfile[3].getChangename()%>" download="<%= productfile[3].getOriginname()%>"><button type="button">다운로드</button></a>
 							<% } else { %>
@@ -158,11 +158,13 @@
 						<td>설명 이미지</td>
 						<td colspan="4">
 							<div id="titleImgArea" align="center">
-								<img width="350" height="auto" id="titleImg" src="<%= request.getContextPath() %>/resources/productUploadFiles/<%= productfile[4].getChangename() %>">
+							<% if (productfile[4] != null) { %>
+								<img width="100" height="100" id="detailImg3" class="detailImg" src="<%= request.getContextPath() %>/resources/productUploadFiles/<%= productfile[4].getChangename()%>">
+								<a href="<%= request.getContextPath() %>/resources/productUploadFiles/<%= productfile[4].getChangename()%>" download="<%= productfile[4].getOriginname()%>"><button type="button">다운로드</button></a>
+							<% } else { %>
+								<img width="100" height="100" id="detailImg3" class="detailImg" src="<%= request.getContextPath() %>/resources/images/no-image.png">
+							<% } %>
 							</div>
-						</td>
-						<td>
-							<a href="<%= request.getContextPath() %>/resources/productUploadFiles/<%= productfile[4].getChangename() %>" download="<%= productfile[4].getOriginname() %>"><button type="button">다운로드</button></a>
 						</td>
 					</tr>
 				</table>

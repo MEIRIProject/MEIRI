@@ -1,7 +1,6 @@
-package com.meiri.jsp.admin.review.controller;
+package com.meiri.jsp.product.controller;
 
 import java.io.IOException;
-import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,19 +8,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.meiri.jsp.admin.review.model.service.ReviewService;
+import com.meiri.jsp.product.model.service.ProductService;
+import com.meiri.jsp.product.model.vo.Product;
 
 /**
- * Servlet implementation class ReviewSelectOne
+ * Servlet implementation class productDetailBuy
  */
-@WebServlet("/reviewOne.re")
-public class ReviewSelectOne extends HttpServlet {
+@WebServlet("/Detailbuy.pd")
+public class productDetailBuy extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ReviewSelectOne() {
+    public productDetailBuy() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,27 +30,32 @@ public class ReviewSelectOne extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int rno = Integer.parseInt(request.getParameter("rno"));
+		
+		int pcode = Integer.parseInt(request.getParameter("pcode"));
+		String pname = request.getParameter("pname");
+		String ptitle = request.getParameter("ptitle");
+		int productQuantity = Integer.parseInt(request.getParameter("productQuantity"));
+		int productPrice = Integer.parseInt(request.getParameter("productPrice"));
 		
 		
-		HashMap<String, Object> review 
-		   = new ReviewService().selectOne(rno);
+		ProductService ps = new ProductService();
+		Product p = new Product();
+		p = ps.selectOne(pcode);
+		
+		/* System.out.println("p : " + p); */
 		
 		String page = "";
 		
-		if(review != null && review.get("review") != null) {
-			request.setAttribute("review", review.get("review"));
-			request.setAttribute("fileList", review.get("attachment"));
-			
-			page = "views/admin/review/reviewDetail.jsp";
-		} else {
-			request.setAttribute("exception", new Exception("리뷰 상세 조회 실패"));
-			request.setAttribute("error-msg", "게시글 상세 조회 실패!!");
-			
-			page = "views/common/errorPage.jsp";
-		}
+		
+		if(p != null) {
+		request.setAttribute("productQuantity", productQuantity);
+		request.setAttribute("product", p);
+		
+		page = "views/product/productDetailbuy.jsp";
 		
 		request.getRequestDispatcher(page).forward(request, response);
+		}
+	
 	}
 
 	/**

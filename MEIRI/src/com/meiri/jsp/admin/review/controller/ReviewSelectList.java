@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.meiri.jsp.admin.review.model.service.ReviewService;
-import com.meiri.jsp.admin.review.model.vo.Review;
 import com.meiri.jsp.common.PageInfo;
+import com.meiri.jsp.review.model.vo.ReviewView;
 
 /**
  * Servlet implementation class ReviewSelectList
@@ -33,7 +33,7 @@ public class ReviewSelectList extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 1. 게시판 목록 처리용 변수
-		ArrayList<Review> list = new ArrayList<>();
+		ArrayList<ReviewView> list = new ArrayList<>();
 		ReviewService rs = new ReviewService();
 		
 		// 페이징 처리에 필요한 변수들
@@ -98,9 +98,9 @@ public class ReviewSelectList extends HttpServlet {
 			
 			page = "views/admin/review/reviewList.jsp";
 		} else {
-			request.setAttribute("error-msg", "자주 묻는 질문 조회 실패");
+			request.setAttribute("error-msg", "리뷰 조회 실패");
+			request.setAttribute("exception", new Exception("리뷰 조회 에러"));
 			
-			// 아직 안만든 오류페이지
 			page = "views/common/errorPage.jsp";
 		}
 		

@@ -95,19 +95,22 @@ public class ProductInsert extends HttpServlet {
 		t.setPcolor( mre.getParameter("color") );
 
 		// Attachment 객체 생성 후 파일 정보 저장하기
-		ArrayList<ProductFile> list = new ArrayList<>();
+		ProductFile[] list = new ProductFile[5];
 		
 		// 리스트에 파일 목록을 하나씩 저장
 		for(int i = originNames.size() - 1 ; i >= 0 ; i--) {
-			// 기존에 역순으로 가져온 파일들을 올바른 순서로 재정렬하는 반복문
-			ProductFile at = new ProductFile();
-			
-			at.setFilepath(savePath);
-			at.setOriginname(originNames.get(i));
-			at.setChangename(changeNames.get(i));
-			
-			list.add(at);
-		}
+	         // 기존에 역순으로 가져온 파일들을 올바른 순서로 재정렬하는 반복문
+	         
+	         int j = originNames.size() - 1 - i;
+	         
+	         ProductFile at = new ProductFile();
+	         
+	         at.setFilepath(savePath);
+	         at.setOriginname(originNames.get(i));
+	         at.setChangename(changeNames.get(i));
+	         
+	         list[j] = at;
+	      }
 		
 		String aid = mre.getParameter("aid");
 		String content = mre.getParameter("content");

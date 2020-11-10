@@ -5,7 +5,7 @@
 <%
    Member m = (Member)session.getAttribute("member");
    ArrayList<ProductView> pvlist = (ArrayList<ProductView>)request.getAttribute("pvlist");	
-
+	int idx= 0;
 
 %>    
 <!DOCTYPE html>
@@ -298,9 +298,9 @@
 				LED 거실등
 			</h2>
 			<div class="sectionProduct">
-			<% for(ProductView p : pvlist){ %>
 				<div class="row nino-hoverEffect">
-					<div class="col-md-3 col-sm-3" id="productDetail">
+			<% for(ProductView p : pvlist){ %>
+					<div class="col-md-3 col-sm-3 productDetail item_<%= idx %>" >
 						<div class="item product">
 							<a class="overlay" href="#">
 								<span class="content">
@@ -310,14 +310,9 @@
 							</a>
 						</div>
 					</div>
-				
-				<input type="hidden" value="<%=p.getPcode()%>" />
-				</div>	
+					<input type="hidden" class="item_<%= idx++ %>" value="<%=p.getPcode()%>" />
 			<%} %>		
-					
-				<div class="row nino-hoverEffect">
-				 
-				</div>
+				
 				
 				
 				
@@ -328,12 +323,14 @@
 	 <script>
                   /* 제품 선택시 제품 상세보기로 넘어가기 */
                   $(function(){
-                     $("#productDetail").click(function(){
-                        var pcode = $(this).parent().find("input").val();
-                        location.href="<%=request.getContextPath()%>/pSelect.pd?pcode="+ pcode;
+                     $(".productDetail").click(function(){
+                    	 var obj = $(this);
+                    	 var pcodeClass = obj[0].className.substring(obj[0].className.indexOf('item'));
+                         var pcode = $('input.'+pcodeClass).val();
+                         location.href="<%=request.getContextPath()%>/pSelect.pd?pcode="+ pcode;
                         });
                      });
-                  </script>
+     </script>
 	
 	
 

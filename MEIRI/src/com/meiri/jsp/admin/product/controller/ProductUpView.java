@@ -32,6 +32,7 @@ public class ProductUpView extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		int pno = Integer.parseInt(request.getParameter("pno"));
+		System.out.println("pno = " + pno);
 		
 		HashMap<String, Object> hmap = new ProductService().getUpdateView(pno);
 		

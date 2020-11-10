@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="com.meiri.jsp.admin.notice.model.vo.*,
                           java.util.*"%>
+                        
 
 <% Notice n = (Notice)request.getAttribute("notice"); %>
 
@@ -91,7 +92,7 @@
             <br>
         </div>
         <br><br><br><br>
-      <div class="btn" align="center">
+      <div class="btn" align="center" style="margin-top:60px;">
          <button onclick="location.href='<%= request.getContextPath() %>/noticeList.no'">돌아가기</button>
          <!-- if(m != null && m.getUserName().equals(b.getBwriter())) -->
       <!-- if문으로 관리자 페이지만 (header 구현 후 작성할 것)-->

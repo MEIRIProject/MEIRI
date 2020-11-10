@@ -6,7 +6,7 @@ import java.sql.Date;
 public class ReviewView implements Serializable{
 	private static final long esralVersionUID = 777777L;
 	
-	
+	private int rcode;
 	private String userid;
 	private String rcontent;
 	private Date rdate;
@@ -17,18 +17,19 @@ public class ReviewView implements Serializable{
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public ReviewView(String userid, String rcontent, Date rdate, int pcode, String changename) {
+	public ReviewView(String userid, String rcontent, Date rdate, int pcode, String changename, int rcode) {
 		super();
 		this.userid = userid;
 		this.rcontent = rcontent;
 		this.rdate = rdate;
 		this.pcode = pcode;
 		this.changename = changename;
+		this.rcode = rcode;
 	}
 	@Override
 	public String toString() {
 		return "ReviewView [userid=" + userid + ", rcontent=" + rcontent + ", rdate=" + rdate + ", pcode=" + pcode
-				+ ", changename=" + changename + "]";
+				+ ", changename=" + changename +  ", rcode=" + rcode +"]";
 	}
 	public String getUserid() {
 		return userid;
@@ -60,7 +61,12 @@ public class ReviewView implements Serializable{
 	public void setChangename(String changename) {
 		this.changename = changename;
 	}
-	
+	public int getRcode() {
+		return rcode;
+	}
+	public void setRcode(int rcode) {
+		this.rcode = rcode;
+	}
 	
 	
 }

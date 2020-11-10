@@ -93,7 +93,7 @@ public class MemberDAO {
 				m.setName(		rset.getString("username")	);
 				m.setAddress(	rset.getString("address")	);
 				m.setEmail(		rset.getString("email")		);
-				m.setBirth(		rset.getDate("birth")		);
+				m.setBirth(		rset.getInt("birth")		);
 				m.setPhone(		rset.getString("phone")		);
 				
 				rlist.add(m);
@@ -133,7 +133,7 @@ public class MemberDAO {
 				m.setName(		rset.getString("username")	);
 				m.setAddress(	rset.getString("address")	);
 				m.setEmail(		rset.getString("email")		);
-				m.setBirth(		rset.getDate("birth")		);
+				m.setBirth(		rset.getInt("birth")		);
 				m.setPhone(		rset.getString("phone")		);
 			}
 			
@@ -156,6 +156,9 @@ public class MemberDAO {
 		
 		String sql = prop.getProperty("insertUmanage");
 		
+		System.out.println("userid = " + userid);
+		System.out.println("aid = " + aid);
+		System.out.println("content = " + umc);
 		
 		try {
 			pstmt = con.prepareStatement(sql);

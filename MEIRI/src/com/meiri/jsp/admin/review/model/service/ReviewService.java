@@ -8,11 +8,10 @@ import static com.meiri.jsp.common.JDBCTemplate.rollback;
 import java.io.File;
 import java.sql.Connection;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import com.meiri.jsp.admin.review.model.dao.ReviewDAO;
-import com.meiri.jsp.admin.review.model.vo.Attachment;
-import com.meiri.jsp.admin.review.model.vo.Review;
+import com.meiri.jsp.review.model.vo.ReviewView;
+import com.meiri.jsp.review.model.vo.reviewFile;
 
 public class ReviewService {
 	
@@ -30,55 +29,58 @@ public class ReviewService {
 		return result;
 	}
 
-	public ArrayList<Review> selectList(int currentPage, int limit) {
+	public ArrayList<ReviewView> selectList(int currentPage, int limit) {
 		
 		con = getConnection();
 		
-		ArrayList<Review> r = rdao.selectList(currentPage, limit, con);
+		ArrayList<ReviewView> r = rdao.selectList(currentPage, limit, con);
 		
 		close(con);
 		
 		return r;
 	}
 
-	public HashMap<String, Object> selectOne(int rno) {
-
-		con = getConnection();
-		
-		HashMap<String, Object> r = rdao.selectOne(rno, con);
-		
-		close(con);
-		
-		return r;
-	}
 
 	public int deleteReview(int rno, String savePath) {
 		
 		con = getConnection();
+		int result2 = 0;
+		// 리뷰 파일 조회 해야돼
+		reviewFile rf = rdao.selectReviewFile(rno, con);
 		
-		HashMap<String, Object> hmap = rdao.selectOne(rno, con);
-		
-		int result = rdao.deleteReview(rno, con);
-		
-		if(result > 0) {
-			// 게시글 삭제가 완료되었다면, 첨부파일도 삭제한다.
+		if(rf.getChangename() != null) {
 			
-			ArrayList<Attachment> list = (ArrayList<Attachment>)hmap.get("attachment");
+			result2 = rdao.deleteReviewFile(rno, con);
 			
-			for(Attachment a : list) {
-				File f = new File(savePath + a.getChangename());
-				
-				f.delete();
-			}
-			
-			commit(con);
 		} else {
-			rollback(con);
+			result2 = 1;
 		}
+		
+		int result = 0;
+		
+		if(result2 > 0) {
+			
+			result = rdao.deleteReview(rno, con);
+			 if(result > 0) {
+				 commit(con);
+				 
+				 File f = new File(savePath + rf.getChangename());
+					
+				 f.delete();
+				 
+			 } else {
+				 rollback(con);
+			 }
+		}
+			
 		
 		close(con);
 		
-		return result;
+		int result3 = result*result2;
+		
+		System.out.println("result3 = " + result3);
+		
+		return result3;
 	} 
 	
 }

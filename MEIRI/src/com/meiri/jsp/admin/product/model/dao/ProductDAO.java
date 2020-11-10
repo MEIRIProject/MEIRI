@@ -226,7 +226,7 @@ private Properties prop;
 	public HashMap<String, Object> selectOne(Connection con, int pno) {
 		
 		HashMap<String, Object> hmap = new HashMap<>();
-		ArrayList<ProductFile> list = new ArrayList<>();
+		ProductFile[] list = new ProductFile[5];
 		Product t = null;
 		
 		PreparedStatement pstmt = null;
@@ -240,7 +240,7 @@ private Properties prop;
 			pstmt.setInt(1, pno);
 			
 			rset = pstmt.executeQuery();
-			
+			int a = 0;
 			while(rset.next()) {
 				
 				t = new Product();
@@ -254,6 +254,8 @@ private Properties prop;
 				t.setPtypec( rset.getString("ptypec"));
 				t.setPcolor( rset.getString("pcolor"));
 				
+				
+				
 				// ---- 여기까지가 게시글 내용
 				
 				ProductFile at = new ProductFile();
@@ -265,7 +267,13 @@ private Properties prop;
 				at.setFilepath(   rset.getString("filepath"));
 				at.setFlevel(     rset.getInt("flevel"));
 				
-				list.add(at);
+				if(rset.getInt("flevel") == 2) {
+					list[4] = at;
+				} else {
+					list[a] = at;
+				}
+				
+				a++;
 			}
 			
 			hmap.put("product", t);
@@ -280,6 +288,7 @@ private Properties prop;
 		
 		return hmap;
 	}
+	
 	public int updateProduct(Connection con, Product p, String aid, String content) {
 		int result = 0;
 		int result1 = 0;
@@ -339,6 +348,7 @@ private Properties prop;
 		PreparedStatement pstmt = null;
 		
 		String sql = prop.getProperty("deleteProductFile");
+		System.out.println("pno = " + pno);
 		
 		try {
 			pstmt = con.prepareStatement(sql);
@@ -353,6 +363,54 @@ private Properties prop;
 		} finally {
 			close(pstmt);
 		}
+		
+		return result;
+	}
+	
+	public int deleteProduct(Connection con, int pno, String aid, String content) {
+		
+		int result1 = 0;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("insertPmanage");
+		
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setString(1, aid);
+			pstmt.setInt(	2, pno);
+			pstmt.setString(3, content);
+			
+			result1 = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+		
+		int result2 = 0;
+		String sql2 = prop.getProperty("deleteProduct");
+		
+		if(result1 > 0) {
+		
+			try {
+				pstmt = con.prepareStatement(sql2);
+				
+				pstmt.setInt(1, pno);
+				
+				result2 = pstmt.executeUpdate();
+				
+			} catch (SQLException e) {
+	
+				e.printStackTrace();
+				rollback(con);
+			} finally {
+				close(pstmt);
+			}
+		}
+		
+		int result = result1 * result2;
 		
 		return result;
 	}

@@ -12,7 +12,7 @@ public class Member implements Serializable {
 	private String name;		// USERNAME
 	private String address;
 	private String email;
-	private Date birth;
+	private int birth;
 	private String phone;
 	
 	
@@ -22,7 +22,7 @@ public class Member implements Serializable {
 	}
 
 
-	public Member(String userid, String password, String name, String address, String email, Date birth, String phone) {
+	public Member(String userid, String password, String name, String address, String email, int birth, String phone) {
 		super();
 		this.userid = userid;
 		this.password = password;
@@ -84,12 +84,12 @@ public class Member implements Serializable {
 	}
 
 
-	public Date getBirth() {
+	public int getBirth() {
 		return birth;
 	}
 
 
-	public void setBirth(Date birth) {
+	public void setBirth(int birth) {
 		this.birth = birth;
 	}
 

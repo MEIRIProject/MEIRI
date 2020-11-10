@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.meiri.jsp.admin.review.model.vo.*, java.util.*" %>
+    pageEncoding="UTF-8" import="com.meiri.jsp.admin.review.model.vo.*, java.util.*,
+    							 com.meiri.jsp.review.model.vo.ReviewView" %>
 <%@ page import="com.meiri.jsp.common.PageInfo" %>
 <%
-	ArrayList<Review> list = (ArrayList<Review>)request.getAttribute("list");
+	ArrayList<ReviewView> list = (ArrayList<ReviewView>)request.getAttribute("list");
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	int listCount = pi.getListCount();
 	int currentPage = pi.getCurrentPage();
@@ -17,8 +18,8 @@
 <title>리뷰 목록</title>
 <style>
 	.outer{
-		width:900px;
-		height:600px;
+		width:1500px;
+		height:auto;
 		background:black;
 		color:white;
 		margin-left:auto;
@@ -31,12 +32,13 @@
 		text-align:center;
 	}
 	.tableArea {
-		width:750px;
-		height:350px;
+		width:1300px;
+		height:auto;
 		margin-left:auto;
 		margin-right:auto;
 	}
 </style>
+<script src="/meiri/resources/js/jquery-3.5.1.min.js"></script>
 </head>
 <body>
 
@@ -47,19 +49,32 @@
 		<div class="tableArea">
 			<table align="center" id="listArea">
 				<tr>
-					<th width="100px">리뷰번호</th>				
+					<th width="80px">리뷰번호</th>
+					<th width="80px">제품번호</th>				
 					<th width="100px">작성자</th>					
-					<th width="150px">작성일</th>					
-					<th width="100px">별 점</th>
+					<th width="100px">작성일</th>					
+					<th width="200px">리뷰내용</th>
+					<th width="200px">리뷰사진</th>
+					<th width="100px"></th>
 				</tr>
-				<% for(Review b : list) { %>
+				<% for(ReviewView b : list) { %>
 				<tr>
 					<!-- 공지사항 DB테이블 보고 만들 예정 -->
-					<input type="hidden" value="<%= b.getRno() %>">
-					<td><%= b.getRno() %></td>
+					<input type="hidden" id="rno" name="rno" value="<%= b.getRcode() %>">
+					<td><%= b.getRcode() %></td>
+					<td><%= b.getPcode() %></td>
 					<td><%= b.getUserid() %></td>
 					<td><%= b.getRdate() %></td>
-					<td><%= b.getRstar() %></td>
+					<td><%= b.getRcontent() %></td>
+					<td>
+						<% if (b.getChangename() != null) {%>
+						<img src="<%=request.getContextPath() %>/resources/reviewUploadFiles/<%= b.getChangename() %>"
+							 width="200px" height="150px"/>
+						<% } else { %>
+						사진 없음
+						<% } %>
+					</td>
+					<td><button onclick="deleteReview()" id="deleteReview <%= b.getRcode()%>">삭제</button></td>
 				</tr>
 				<% } %>
 			</table>
@@ -97,19 +112,20 @@
 		<div class="btnArea" align="center">
 			
 			<br><br>
+			
+			<button onclick="location.href='views/admin/adminPage.jsp'">
+					관리자 페이지
+			</button>
 				
 				<script>
 					$(function(){
-						$('#listArea td').mouseenter(function(){
-							$(this).parent().css({"background" : "grey", "cursor" : "pointer"});
-						}).mouseout(function(){
-							$(this).parent().css({"background" : "black"});
-						}).click(function(){
-							var rno = $(this).parent().find('input').val();
-							location.href = "<%= request.getContextPath() %>/reviewOne.re?rno=" + rno;
-																		
+						$('button[id^="deleteReview"]').click(function(){
+							var rno = $(this).parent().parent().children().eq(0).val();
+							
+							location.href = '<%= request.getContextPath()%>/rDelete.re?rno=' + rno;
 						});
-					});
+					})
+					
 				</script>
 					
 		</div>

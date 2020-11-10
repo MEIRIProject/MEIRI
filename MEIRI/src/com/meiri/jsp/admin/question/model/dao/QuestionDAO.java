@@ -89,7 +89,7 @@ public class QuestionDAO {
 				
 				q.setQno(      rset.getInt("qcode"));
 				q.setQwriter(  rset.getString("adminid"));
-				q.setQtitle(   rset.getString("qtitle"));
+				q.setQtitle(   rset.getString("qname"));
 				q.setQanswer(  rset.getString("qcontent"));
 				
 				list.add(q);
@@ -127,7 +127,7 @@ public class QuestionDAO {
 				
 				q.setQno(      rset.getInt("qcode"));
 				q.setQwriter(  rset.getString("adminid"));
-				q.setQtitle(   rset.getString("qtitle"));
+				q.setQtitle(   rset.getString("qname"));
 				q.setQanswer(  rset.getString("qcontent"));
 
 			}

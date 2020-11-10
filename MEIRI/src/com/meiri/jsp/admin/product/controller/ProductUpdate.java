@@ -78,20 +78,16 @@ public class ProductUpdate extends HttpServlet {
 			// 가져온 파일 하나씩 꺼내옴
 			String tagName = files.nextElement();
 			
-			if(mre.getOriginalFileName(tagName) != null) {
-			
-				originFiles.add(mre.getOriginalFileName(tagName));
-				saveFiles.add(mre.getFilesystemName(tagName));
+			originFiles.add(mre.getOriginalFileName(tagName));
+			saveFiles.add(mre.getFilesystemName(tagName));
 				
-				System.out.println("tagName : " + tagName);
-				System.out.println(originFiles);
-				System.out.println(saveFiles);
-			}
+			System.out.println("tagName : " + tagName);
+			System.out.println(originFiles);
+			System.out.println(saveFiles);
+			
 		}
 		
-		ArrayList<ProductFile> list = (ArrayList<ProductFile>)hmap.get("productfile");
 		
-		// 썸네일 게시글 저장하기
 		Product t = (Product)hmap.get("product");
 		
 		t.setPno( Integer.parseInt(mre.getParameter("pno")));
@@ -103,31 +99,42 @@ public class ProductUpdate extends HttpServlet {
 		t.setPtypec( mre.getParameter("typec") );
 		t.setPcolor( mre.getParameter("color") );
 
-		// Attachment 객체 생성 후 파일 정보 저장하기
 		
+		// 가지고 있던 파일들
+		ProductFile[] list = (ProductFile[])hmap.get("productfile");
 		
-		ArrayList<ProductFile> list2 = new ArrayList<>();
-		for (int i = 0; i < list.size() ; i++) {
-			new File(savePath + list.get(i).getChangename()).delete();
-		}
+		// 새로 받은 파일들
+		// originFiles
+		
 		
 		// 리스트에 파일 목록을 하나씩 저장
 		for(int i = originFiles.size() - 1 ; i >= 0 ; i--) {
-			// 기존에 역순으로 가져온 파일들을 올바른 순서로 재정렬하는 반복문
-			ProductFile at = new ProductFile();
 			
-			at.setFilepath(savePath);
-			at.setOriginname(originFiles.get(i));
-			at.setChangename(saveFiles.get(i));
+			int j = originFiles.size() - 1 - i;
 			
-			list2.add(at);
+			if(originFiles.get(i) != null) {
+				
+				if(list[j] != null) {
+					new File(savePath + list[j].getChangename()).delete();
+				}
+				
+				ProductFile pf = new ProductFile();
+				
+				pf.setFilepath(savePath);
+				pf.setOriginname(originFiles.get(i));
+				pf.setChangename(saveFiles.get(i));
+				
+				list[j] = pf;
+				
+			}
+			
 		}
 		
 		String aid = mre.getParameter("aid");
 		String content = mre.getParameter("content");
 		
 		
-		int result = ps.updateProduct(t, list2, aid, content);
+		int result = ps.updateProduct(t, list, aid, content);
 		
 		System.out.println("result = " + result);
 		if( result > 0 ) { 

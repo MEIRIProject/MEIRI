@@ -10,11 +10,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Properties;
 
-import com.meiri.jsp.admin.review.model.vo.Attachment;
-import com.meiri.jsp.admin.review.model.vo.Review;
+import com.meiri.jsp.review.model.vo.ReviewView;
+import com.meiri.jsp.review.model.vo.reviewFile;
 
 public class ReviewDAO {
 	private Properties prop;
@@ -63,14 +62,14 @@ public class ReviewDAO {
 		return result;
 	}
 
-	public ArrayList<Review> selectList(int currentPage, int limit, Connection con) {
+	public ArrayList<ReviewView> selectList(int currentPage, int limit, Connection con) {
 		
-		ArrayList<Review> rlist = new ArrayList<>();
+		ArrayList<ReviewView> rlist = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
 		// 이거 DB 완성 후 작성
-		String sql = prop.getProperty("selectList");
+		String sql = prop.getProperty("selectReviewList");
 		
 		try {
 			pstmt = con.prepareStatement(sql);
@@ -87,13 +86,14 @@ public class ReviewDAO {
 			
 			while(rset.next()) {
 				
-				Review r = new Review();
+				ReviewView r = new ReviewView();
 				
-				r.setRno(		rset.getInt("rno")			);	
+				r.setRcode(		rset.getInt("rcode")		);
+				r.setUserid(	rset.getString("username")	);
 				r.setRcontent(	rset.getString("rcontent")	);
 				r.setRdate(		rset.getDate("rdate")		);
-				r.setRstar(		rset.getInt("rstar")		);
-				r.setUserid(	rset.getString("userid")	);
+				r.setPcode(		rset.getInt("pcode")		);
+				r.setChangename(rset.getString("changename"));
 				
 				rlist.add(r);
 			}
@@ -108,66 +108,12 @@ public class ReviewDAO {
 		return rlist;
 	}
 
-	public HashMap<String, Object> selectOne(int rno, Connection con) {
-		
-		HashMap<String, Object> hmap = new HashMap<>();
-		ArrayList<Attachment> list = new ArrayList<>();
-		Review r = null;
-		
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		
-		String sql = prop.getProperty("selectOne");
-		
-		try {
-			pstmt = con.prepareStatement(sql);
-			
-			pstmt.setInt(1, rno);
-			
-			rset = pstmt.executeQuery();
-			
-			while(rset.next()) {
-				
-				r = new Review();
-				
-				r.setRno(rno);
-				r.setRcontent( rset.getString("rcontent"));
-				r.setRdate( rset.getDate("rdate"));
-				r.setRstar( rset.getInt("star"));
-				r.setUserid( rset.getString("userid"));
-				r.setPno( rset.getInt("pcode"));
-				r.setFno(  rset.getInt("fcode"));
-				
-				// ---- 여기까지가 게시글 내용
-				
-				Attachment at = new Attachment();
-				
-				at.setFcode( 	  rset.getInt("fcode"));
-				at.setPcode( 	  rset.getInt("pcode") );
-				at.setOriginname( rset.getString("originname"));
-				at.setChangename( rset.getString("changename"));
-				at.setFilepath(   rset.getString("filepath"));
-				
-				list.add(at);
-			}
-			
-			hmap.put("review", r);
-			hmap.put("attachment", list);
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}		
-		
-		return hmap;
-	}
 
 	public int deleteReview(int rno, Connection con) {
 		
 		int result = 0;
 		PreparedStatement pstmt = null;
+		
 		String sql = prop.getProperty("deleteReview");
 		
 		
@@ -185,6 +131,63 @@ public class ReviewDAO {
 			close(pstmt);
 		}
 		
+		return result;
+	}
+
+	public reviewFile selectReviewFile(int rno, Connection con) {
+		
+		reviewFile rf = new reviewFile();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectReviewFile");
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setInt(1, rno);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				
+				rf.setChangename( rset.getString("changename"));
+				
+			}
+			
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return rf;
+	}
+
+	public int deleteReviewFile(int rno, Connection con) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("deleteReviewFile");
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setInt(1, rno);
+			
+			System.out.println("rno = " + rno);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
 		
 		return result;
 	}

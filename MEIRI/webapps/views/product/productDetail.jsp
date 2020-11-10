@@ -242,6 +242,7 @@ form hr {
 </style>
 </head>
 <body>
+
 	<div class="width">
 		<section class="product_info">
 			<div class="container">
@@ -258,29 +259,29 @@ form hr {
 								data-target="4.jpg"></li>
 						</ul>
 					</div>
+				<form action="<%= request.getContextPath() %>/Detailbuy.pd" method="post">
 					<div class="proudct_specs" style="float: right; width: 50%">
-						<h2><%= p.getPname() %></h2>
+						<h2>
+							<input type="text" name="pname" value="<%= p.getPname()%>" readonly>
+						</h2>
 						<h3>
-							<%= p.getPtitle() %>
+							<input type="text" name="ptitle" value="<%= p.getPtitle()%>" readonly>
 						</h3>
-						<p>타입 A : <%= p.getPtypea() %> / 
-							<% if(p.getPtypeb() != null) {%>
-								타입 B: <%= p.getPtypeb() %>
-							<% } %>
-							<% if(p.getPtypec() != null) {%>
-								타입 C: <%= p.getPtypec() %>
-							<% } %>
-						</p>
-						<form action="">
+							<input type="hidden" name="pcode" value="<%= p.getPcode()%>" readonly>
 							<hr />
 							<div class="option" style="display: flex; width: 600px;">
 								<div class="size">
 									<h4>타입</h4>
-									<input type="radio" id="a_type" name="size" value="A">
-									<label for="a_type">A</label> - <input type="radio" id="b_type"
-										name="size" value="B" checked> <label for="b_type">B</label>
-									- <input type="radio" id="c_type" name="size" value="C">
-									<label for="c_type">C</label>
+									<input type="radio" id="a_type" name="a_type" value="<%= p.getPtypea() %>">
+									<label for="a_type">타입 A : </label> -
+									<% if(p.getPtypeb() != null) {%>
+									<input type="radio" id="b_type"	name="b_type" value="<%= p.getPtypeb() %>" checked> 
+									<label for="b_type">타입 B: </label> - 
+									<% } %>
+									<% if(p.getPtypec() != null) {%>
+									<input type="radio" id="c_type" name="c_type" value="<%= p.getPtypec() %>">
+									<label for="c_type">타입 C: </label>
+									<% } %>
 								</div>
 								<div class="color">
 									<h4>색상</h4>
@@ -291,10 +292,11 @@ form hr {
 										<option value="로즈골드">로즈골드</option>
 									</select>
 								</div>
-								<div class="quantity" id="120000">
+								<div class="quantity">
 									<h4>수량</h4>
-									<span class="plus">+</span> <input type="text" readonly
-										value="1"> <span class="minus">-</span>
+									<span class="plus">+</span> 
+									<input type="text" name="productQuantity" readonly	value="1"> 
+									<span class="minus">-</span>
 								</div>
 							</div>
 							<hr />
@@ -303,6 +305,7 @@ form hr {
 								<div class="total_price" style="float: left;">
 									<h4>가격</h4>
 									<span class="price"><%= p.getPrice() %>원</span>
+									<input type="hidden" name="productPrice" value="<%= p.getPrice()%>">
 									<!-- 상품 등록 시 .quantity클래스 아이디로 받고 여기에서 get 필요할 듯 -->
 								</div>
 								<div class="order_now" style="float: right; margin-right: 25px;">
@@ -316,6 +319,8 @@ form hr {
 			</div>
 
 		</section>
+		
+		
 
 		<section class="product_detailinfo">
 			<div class="container">

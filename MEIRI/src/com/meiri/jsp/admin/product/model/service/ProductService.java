@@ -5,6 +5,7 @@ import static com.meiri.jsp.common.JDBCTemplate.commit;
 import static com.meiri.jsp.common.JDBCTemplate.getConnection;
 import static com.meiri.jsp.common.JDBCTemplate.rollback;
 
+import java.io.File;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -41,7 +42,7 @@ public class ProductService {
 	}
 
 
-	public int insertProduct(Product t, ArrayList<ProductFile> list, String aid, String content) {
+	public int insertProduct(Product t, ProductFile[] list, String aid, String content) {
 		
 		con = getConnection();
 		int result = 0;
@@ -52,28 +53,28 @@ public class ProductService {
 		if(result1 > 0) {
 			int bno = pDAO.getCurrentBno(con);
 			
-			for(int i = 0; i < list.size(); i++) {
-				list.get(i).setPcode(bno);
+			for(int i = 0; i < list.length; i++) {
+				list[i].setPcode(bno);
 			}
 		}
 			
 		// 2. 첨부파일 여러개 저장
 		int result2 = 0;
-		for(int i = 0 ; i < list.size(); i++) {
+		for(int i = 0 ; i < list.length; i++) {
 			// 첫번째 이미지는 대표 이미지 (flevel = 0 )
 			// 중간은 서브이미지 (flevel = 1 )
 			// 마지막 이미지는 설명 이미지 (flevel = 2 )
 			
-			if (list.get(i).getChangename() != null) {
+			if (list[i].getChangename() != null) {
 			
 				if(i == 0)
-					list.get(i).setFlevel(0);
+					list[i].setFlevel(0);
 				else if(i == 4)
-					list.get(i).setFlevel(2);
+					list[i].setFlevel(2);
 				else
-					list.get(i).setFlevel(1);
+					list[i].setFlevel(1);
 				
-				result2 = pDAO.insertProductFile(con, list.get(i));
+				result2 = pDAO.insertProductFile(con, list[i]);
 				
 				if( result2 == 0 ) break; // 잘못 실행된 행이 있다면 반복(insert) 취소! 
 			}
@@ -116,7 +117,7 @@ public class ProductService {
 	}
 
 
-	public int updateProduct(Product t, ArrayList<ProductFile> list, String aid, String content) {
+	public int updateProduct(Product t, ProductFile[] list, String aid, String content) {
 		int totalResult = 0;
 		
 		con = getConnection();
@@ -132,22 +133,23 @@ public class ProductService {
 			
 			result2 = pDAO.deleteProductFile(con, pno);
 			
-			for(int i = 0 ; i < list.size(); i++) {
+			for(int i = 0 ; i < list.length; i++) {
 				// 첫번째 이미지는 대표 이미지 (flevel = 0 )
 				// 중간은 서브이미지 (flevel = 1 )
 				// 마지막 이미지는 설명 이미지 (flevel = 2 )
-				list.get(i).setPcode(pno);
-				if(i == 0)
-					list.get(i).setFlevel(0);
-				else if(i == (list.size()-1))
-					list.get(i).setFlevel(2);
-				else
-					list.get(i).setFlevel(1);
-				
-				result2 = pDAO.insertProductFile(con, list.get(i));
-				
-				if( result2 == 0 ) break; // 잘못 실행된 행이 있다면 반복(insert) 취소! 
-				System.out.println("result2 = " + result2);
+				if(list[i] != null) {
+					list[i].setPcode(pno);
+					if(i == 0)
+						list[i].setFlevel(0);
+					else if(i == 4)
+						list[i].setFlevel(2);
+					else
+						list[i].setFlevel(1);
+					
+					result2 = pDAO.insertProductFile(con, list[i]);
+					
+					if( result2 == 0 ) break; // 잘못 실행된 행이 있다면 반복(insert) 취소! 
+				}
 			}
 			
 			if(result2 > 0) {
@@ -159,6 +161,55 @@ public class ProductService {
 		close(con);
 		
 		return totalResult;
+	}
+
+
+	public int deleteProduct(int pno, String savePath, String aid, String content) {
+		
+		con = getConnection();
+		
+		int result2 = 0;
+		int result = 0;
+		
+		HashMap<String, Object> hmap = pDAO.selectOne(con, pno);
+		
+		ProductFile[] list = 
+				(ProductFile[])hmap.get("productfile");
+		
+		result = pDAO.deleteProductFile(con, pno);
+		
+		System.out.println("result = " + result);
+		
+		if(result > 0) {
+			
+			result2 = pDAO.deleteProduct(con, pno, aid, content);
+			
+			if(result2 > 0) {
+				
+				for(ProductFile a : list) {
+					if(a != null) {
+						File f = new File(savePath + a.getChangename());
+						
+						f.delete();
+					}
+				}
+				commit(con);
+			} else {
+				rollback(con);
+			}
+			
+			
+		} else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		int result3 = result*result2;
+		
+		System.out.println("result3 = " + result3);
+		
+		return result3;	
 	}
 
 }
