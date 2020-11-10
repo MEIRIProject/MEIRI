@@ -109,6 +109,29 @@ public class MemberService {
          return m;
       }
       
-      
+      public int emailDupCheck(String email) {
+		     con = getConnection();
+		     
+		     int result = mDAO.emailDupCheck(con, email);
+		     
+		     close(con);
+		     
+			return result;
+		}
+		public int updatePwd (Member m) throws MemberException {
+			con = getConnection();
+			
+			int result = mDAO.updatePwd(con, m);
+			
+			if (result > 0) commit(con);
+			else {
+				rollback(con);
+				throw new MemberException("비밀번호를 찾을 수 없습니다.");
+			}
+			
+		    close(con);
+		    
+		    return result;
+		}
    }
 

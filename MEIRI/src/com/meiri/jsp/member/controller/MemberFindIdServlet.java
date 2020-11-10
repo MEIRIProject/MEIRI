@@ -54,11 +54,11 @@ public class MemberFindIdServlet extends HttpServlet {
 			System.out.println("아이디 찾기 성공");
 			
 			RequestDispatcher view 
-				= request.getRequestDispatcher("views/findIdSuccess.jsp");
+				= request.getRequestDispatcher("views/member/findIdSuccess.jsp");
 			
 			HttpSession session = request.getSession(); 
 			
-			session.setAttribute("memberFindId", m);
+			session.setAttribute("usersFindId", m);
 			view.forward(request, response);
 			
 		} catch (MemberException e) {

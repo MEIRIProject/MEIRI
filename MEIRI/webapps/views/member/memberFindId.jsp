@@ -44,7 +44,7 @@
 							<form class="row login_form" action="/meiri/findId.me" method="post" id="contactForm" novalidate="novalidate"
 								onsubmit="return validate()">
 								<div class="col-md-12 form-group">
-									<input type="text" class="form-control" id="name" name="name" placeholder="이름을 입력하세요.">
+									<input type="text" class="form-control" id="name" name="userName" placeholder="이름을 입력하세요.">
 								</div>
 								<div class="col-md-12 form-group">
 									<input type="text" class="form-control" id="name" name="email" placeholder="이메일을 입력하세요.">
@@ -82,7 +82,7 @@
 	function findId(){
 		$('#contactForm').submit();
 		event.preventDefault();
-		<%-- location.href="<%=request.getContextPath()%>/findId.u"; --%>
+		<%-- location.href="<%=request.getContextPath()%>/findId.me"; --%>
 	}
 	
 

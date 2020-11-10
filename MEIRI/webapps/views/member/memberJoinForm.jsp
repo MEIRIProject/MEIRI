@@ -46,14 +46,15 @@
                 </tr>
                 <tr>
                     <td>이메일 </td>
-                    <td><input type="text" name="email" id="email" required></td>
+                    <td><input type="text" name="email1" id="email1" required></td>
                     <td>@
-                        <select>
-                            <option value="@naver.com">naver.com</option>
-                            <option value="@gmail.com">gmail.com</option>
-                            <option value="@nate.com">nate.com</option>
-                            <option value="@hanmail.net">hanmail.net</option>
+                        <select name="email2">
+                            <option value="naver.com">naver.com</option>
+                            <option value="gmail.com">gmail.com</option>
+                            <option value="nate.com">nate.com</option>
+                            <option value="hanmail.net">hanmail.net</option>
                         </select>
+                        <td width="200px"><div id="emailCheck">중복확인</div></td>
                     </td>
                 </tr>
                 <tr>
@@ -82,7 +83,6 @@
                          -
 						<input type="text" maxlength="4" name="tel2" size="2"> -
                         <input type="text" maxlength="4" name="tel3" size="2">
-                        <input type="button" value="인증하기">
                     </td>
 					<td></td>
 				</tr>				
@@ -176,6 +176,25 @@
 				});
 			});
 			
+			$('#emailCheck').on('click',function(){
+				$.ajax({
+					url : '/meiri/emailDup.me',
+					type : 'post',
+					data : { 
+						email1 : $('email1').val()
+						     },
+					success : function(data){
+						
+						if ( data == 0) {
+							alert("사용 가능한 이메일입니다.");
+						} else {
+							alert("이미 사용 중인 이메일입니다.");
+						}
+					}, error : function(){
+						console.log("에러 발생");
+					}
+				});
+			});
 		
 				
 			</script>

@@ -98,7 +98,30 @@ public void setPhone(String phone) {
 }
    
    
-   
-   
+public String randomPwd() {
+	 char pwCollection1[] = new char[] { 
+                      '1','2','3','4','5','6','7','8','9','0'};
+    char pwCollection2[] = new char[] { 
+                      'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z', 
+                      'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
+    char pwCollection3[] = new char[] { 
+                      '!','@','#','$','%','^','=','*','-','?'};
+    String u_pwd1 = "";
+    String u_pwd2 = "";
+    String u_pwd3 = "";
+    for (int i = 0; i < 3; i++) {
+    int selectRandomPw1 = (int)(Math.random()*(pwCollection1.length));//Math.rondom()은 0.0이상 1.0미만의 난수를 생성해 준다. 
+        u_pwd1 += pwCollection1[selectRandomPw1]; 
+    }
+    for (int i = 0; i < 3; i++) {
+    int selectRandomPw2 = (int)(Math.random()*(pwCollection2.length));//Math.rondom()은 0.0이상 1.0미만의 난수를 생성해 준다. 
+    u_pwd2 += pwCollection2[selectRandomPw2]; 
+    }  
+    for (int i = 0; i < 3; i++) {
+    int selectRandomPw3 = (int)(Math.random()*(pwCollection3.length));//Math.rondom()은 0.0이상 1.0미만의 난수를 생성해 준다. 
+    u_pwd3 += pwCollection3[selectRandomPw3]; 
+    }
+    return u_pwd1+u_pwd2+u_pwd3; 
+}
   
 }
