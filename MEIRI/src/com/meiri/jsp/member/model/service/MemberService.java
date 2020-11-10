@@ -87,7 +87,7 @@ public class MemberService {
 
       public Member findId(Member m) throws MemberException {
          con = getConnection();
-         Member result = mDAO.selectMember(con, m);
+         Member result = mDAO.findId(con, m);
          
          close(con);
          
