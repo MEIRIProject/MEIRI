@@ -43,7 +43,7 @@ public class MemberLoginServlet extends HttpServlet {
 		
 			session.setAttribute("member", m);
 			
-			response.sendRedirect("index.jsp");
+			response.sendRedirect("index.pl");
 			
 		} else {
 			request.setAttribute("error-msg", "회원 로그인 실패!");

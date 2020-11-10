@@ -36,6 +36,7 @@ public class productSelectOne extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int pcode = Integer.parseInt(request.getParameter("pcode"));
 		
+		
 		Product p = new ProductService().selectOne(pcode);
 		System.out.println(p);
 		ArrayList<ReviewView> rvlist = new ReviewService().selectList(pcode);
@@ -47,6 +48,7 @@ public class productSelectOne extends HttpServlet {
 		if(p != null) {
 			request.setAttribute("product", p);
 			request.setAttribute("rvlist", rvlist);
+			
 			
 			page = "views/product/productDetail.jsp";
 		}else {

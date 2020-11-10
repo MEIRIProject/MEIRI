@@ -349,8 +349,8 @@ form hr {
 								style="margin: 0;" method="post" enctype="multipart/form-data">
 								<!-- 파일, 상품 번호, 리뷰 내용, 회원 번호 넘겨줘야함 -->
 								
-								
 								<input type="hidden" name="userId" value="<%=m.getUserId()%>">
+								
 								<input type="hidden" name="pcode" value="<%= p.getPcode() %>" />
 							
 
@@ -373,7 +373,7 @@ form hr {
 				</div>
 			</div>
 		</div>
-		
+			
 		<div>
 			<% for(int i = 0 ; i < rvlist.size(); i++){%>
 				<p><%=rvlist.get(i).getUserid()%></p>
