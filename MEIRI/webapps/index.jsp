@@ -58,7 +58,7 @@
                   <% } else {%>
                   <ul> 
                      <li><%= m.getUserName() %></li>
-                     <li><div id="userLoginBtn" onclick="location.href='/meiri/views/mypage/mypage.jsp';">마이페이지</div></li>&nbsp;&nbsp;
+                     <li><div id="userLoginBtn" onclick="location.href='<%=request.getContextPath()%>/mypage.my'">마이페이지</div></li>&nbsp;&nbsp;
                      <li><div id="userJoinBtn" onclick="location.href='/meiri/logout.me';">로그아웃</div></li>
                   </ul>
                   <% }%>

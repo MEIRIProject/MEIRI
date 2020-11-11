@@ -43,7 +43,7 @@ public class MemberDAO {
 		PreparedStatement pstmt = null; // SQL 정보를 담을 객체
 		ResultSet rset = null; // select 한 결과를 받아올 객체
 
-		String sql = prop.getProperty("findId");
+		String sql = prop.getProperty("selectMember");
 
 		// 쿼리 확인용
 		System.out.println(sql);

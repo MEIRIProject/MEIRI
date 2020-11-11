@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.meiri.jsp.member.model.vo.*"%>
+    
+<%
+	Member m = (Member)session.getAttribute("member");
+
+%>
+
 <!DOCTYPE html>
 <html>
 
@@ -87,11 +93,12 @@
 	
 	<!-- -------------------------------------------------------------- -->
 	
-		
+	
 	<ul id="navi">
         <li class="group">
             <ul class="sub">
-                <li><a href="#">작성한 리뷰 확인</a></li>
+            
+                <li><a href="<%=request.getContextPath()%>/mypagemyreview.my">작성한 리뷰 확인</a></li>
                 <li><a href="#">작성한 댓글 확인</a></li>
                 <li><a href="#">문의 내용 확인</a></li>
                 <li><a href="/myWeb/views/basket/basketShopping.jsp">장바구니</a></li>
