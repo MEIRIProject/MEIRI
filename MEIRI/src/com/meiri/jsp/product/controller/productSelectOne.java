@@ -43,6 +43,8 @@ public class productSelectOne extends HttpServlet {
 		ArrayList<ProductFilesList> pflist2 = new ProductService().productDetailImageList2(pcode);
 		ProductFilesList pf3 = new ProductService().productDetailImageList3(pcode);
 		
+		ProductFilesList[] pflist = new ProductService().selectList(pcode);
+		
 		ArrayList<ReviewView> rvlist = new ReviewService().selectList(pcode);
 		System.out.println("rlist = " + rvlist);
 		String page = "";
@@ -60,6 +62,7 @@ public class productSelectOne extends HttpServlet {
 			request.setAttribute("pf1", pf1);
 			request.setAttribute("pflist2", pflist2);
 			request.setAttribute("pf3", pf3);
+			request.setAttribute("productfile", pflist);
 			
 			
 			page = "views/product/productDetail.jsp";

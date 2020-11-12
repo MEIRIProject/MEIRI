@@ -5,6 +5,9 @@
     								com.meiri.jsp.product.model.vo.*,
     								java.util.*"%>
 <%
+
+	ProductFilesList[] pf = (ProductFilesList[])request.getAttribute("productfile");
+
 	Product p = (Product)request.getAttribute("product");
 	ArrayList<ReviewView> rvlist = (ArrayList<ReviewView>)request.getAttribute("rvlist");
 	
@@ -18,6 +21,8 @@
 <head>
 <meta charset="UTF-8">
 <title>ProductDetail</title>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="/meiri/resources/js/jquery-3.5.1.min.js"></script>
 
 <style>
@@ -311,7 +316,7 @@ form hr {
 									<!-- 상품 등록 시 .quantity클래스 아이디로 받고 여기에서 get 필요할 듯 -->
 								</div>
 								<div class="order_now" style="float: right; margin-right: 25px;">
-									<button type="submit" class="basketbtn">장바구니</button>
+									
 									<button type="submit" class="buybtn">구매하기</button>
 								</div>
 							</div>
@@ -319,9 +324,26 @@ form hr {
 					</div>
 				</div>
 			</div>
-
+		<button id="basketbtn" onclick="basketbtn()">장바구니</button>
 		</section>
-		
+		<script>
+			function basketbtn() {
+				$.ajax({
+					url : '/meiri/cartInsert.ca',
+					type : 'post',
+					data : {
+						userid : "<%= m.getUserId() %>",
+						pcode : <%= p.getPcode() %>,
+						fcode : <%= pf[0].getFcode() %>,
+						Quantity : $('input[name=productQuantity]').val()
+				}, success : function(data) {
+					alert(data);
+					}, error : function() {
+						alert("장바구니 추가에 실패하였습니다");
+					}
+				});
+			};
+		</script>
 		
 
 		<section class="product_detailinfo">

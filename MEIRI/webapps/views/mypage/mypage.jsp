@@ -101,14 +101,18 @@
                 <li><a href="<%=request.getContextPath()%>/mypagemyreview.my">작성한 리뷰 확인</a></li>
                 <li><a href="#">작성한 댓글 확인</a></li>
                 <li><a href="#">문의 내용 확인</a></li>
-                <li><a href="/myWeb/views/basket/basketShopping.jsp">장바구니</a></li>
-            	<li><a href="/myWeb/views/directions/directions.jsp">주문조회</a></li>
+                <li><a onclick="basketShopping()">장바구니</a></li>
+            	<li><a href="/meiri/views/directions/directions.jsp">주문조회</a></li>
             </ul>
         </li>
     </ul>
 	
 	<script>
-		
+		function basketShopping() {
+			<!-- m.getUserId() -->
+			var userid = 'user01';
+            location.href = "<%= request.getContextPath() %>/selectCart.ca?userid=" + userid;
+		}
 	</script>
 	
 	<br /><br />

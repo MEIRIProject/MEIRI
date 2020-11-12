@@ -68,7 +68,24 @@ public class ProductService {
 		close(con);
 		return pf3;
 	}
+	
+
+	public ProductFilesList[] selectList(int pcode) {
+		
+		con = getConnection();
+		
+		ProductFilesList[] list = new ProductFilesList[5];
+		
+		list = pDAO.PFselectList(con, pcode);
+		
+		close(con);
+				
+		return list;
+	}
       
    
    
 }
+      
+   
+   

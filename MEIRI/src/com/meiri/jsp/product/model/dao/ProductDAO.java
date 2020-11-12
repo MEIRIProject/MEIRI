@@ -221,4 +221,53 @@ import com.meiri.jsp.product.model.vo.ProductView;
 		
 		return pf3;
 	}
-       }
+	
+	public ProductFilesList[] PFselectList(Connection con, int pcode) {
+		
+		ProductFilesList[] pfl = new ProductFilesList[5];
+		PreparedStatement pstmt = null;
+        ResultSet rset = null;
+		
+        String sql = prop.getProperty("PFselectList");
+        
+        int a = 0;
+        ProductFilesList pf = null;
+        
+        try {
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setInt(1, pcode);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				pf = new ProductFilesList();
+				
+				pf.setFcode(rset.getInt("fcode"));
+				pf.setPcode(rset.getInt("pcode"));
+				pf.setFilepath(rset.getString("filepath"));
+				pf.setOriginname(rset.getString("originname"));
+				pf.setChangename(rset.getString("changename"));
+				pf.setFlevel(rset.getInt("flevel"));
+				
+				if(pf.getFlevel() != 2) {
+					pfl[a] = pf;
+					a++;
+				} else {
+					pfl[4] = pf;
+				}
+				
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return pfl;
+		
+	}
+	
+}

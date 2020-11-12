@@ -10,6 +10,11 @@
 	String productPrice = request.getParameter("productPrice");
 	String productQuantity = request.getParameter("productQuantity");
 	int totalPrice = Integer.parseInt(request.getParameter("totalPrice"));
+	
+	System.out.println("pname = " + pname);
+	if(pname == null){
+		pname = "제품";
+	}
 %>
 <!DOCTYPE html>
 <html>
