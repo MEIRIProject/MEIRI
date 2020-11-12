@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<% 
-	String userid = (String)request.getAttribute("userid");
+    pageEncoding="UTF-8" import="com.meiri.jsp.member.model.vo.*"%>
+<%
+	Member m = (Member)session.getAttribute("member");
 %>
 <!DOCTYPE html>
 <html>
@@ -27,12 +27,11 @@
 		<br><br><br><br>
 	<div class="outer">
 		<br><br><br><br>
-		<h3 align="center"><%= userid %>님 이용해주셔서 감사합니다.</h3>
+		<h3 align="center"><%= m.getUserId() %>님 이용해주셔서 감사합니다.</h3>
 	
 
 		<br><br><br><br>
 		<div align="center">
-		
 			<button class="Btn" onclick="location.href='<%= request.getContextPath() %>'">홈으로 돌아가기</button>
 		</div>
 	</div>

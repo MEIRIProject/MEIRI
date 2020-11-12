@@ -45,7 +45,7 @@
 	       	        msg += '고유ID : ' + rsp.imp_uid;
 	       	        msg += '상점 거래ID : ' + rsp.merchant_uid;
 	       	        msg += '결제 금액 : ' + rsp.paid_amount;
-	       	     	location.href='<%=request.getContextPath()%>/orderConfirm?msg=' + msg;
+	       	     	location.href='<%=request.getContextPath()%>/orderConfirm?msg='+ msg;
 	       	    } else {
 	       	        var msg = '결제에 실패하였습니다.';
 	       	        msg += '에러내용 : ' + rsp.error_msg;

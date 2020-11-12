@@ -24,20 +24,20 @@
 	.outer{
 		width:800px;
 		height:auto;
-		background:black;
-		color:white;
+		background:white;
+		color:black;
 		margin-left:auto;
 		margin-right:auto;
 		margin-top:50px;
 	}
 	td {
-		border:1px solid black;
-		background : black;
-		color: white;
+      	border:2px solid #edeff1;
+		background : none;
+		color: black;
 	}
 
 	.tableArea {
-		border:1px solid black;
+      	border:2px solid #edeff1;
 		background : white;
 		color: black;
 		width:800px;
@@ -73,6 +73,20 @@
 	.replyList1 td{	background : lavenderblush; }
 	.replyList2 td{	background : honeydew; }
 	.replyList3 td{ background : aliceblue; }
+	
+    .normalBtn{
+	    padding: 0 24px;
+  	    height: 40px;
+   		color: white;
+   		font-size: 18px;
+   		font-weight: 600;
+   		background: #1f76bc;
+   		border-radius: 25px;
+   		border: none;
+	}
+    .normalBtn:hover{
+        cursor:pointer;
+    }
 	
 </style>
 </head>
@@ -116,7 +130,7 @@
 							</div>
 						</td>
 						<td>
-							<a href="<%= request.getContextPath() %>/resources/productUploadFiles/<%= productfile[0].getChangename() %>" download="<%= productfile[0].getOriginname() %>"><button type="button">다운로드</button></a>
+							<a href="<%= request.getContextPath() %>/resources/productUploadFiles/<%= productfile[0].getChangename() %>" download="<%= productfile[0].getOriginname() %>"><button class="downBtn" type="button">다운로드</button></a>
 						</td>
 					</tr>
 					<tr>
@@ -125,7 +139,7 @@
 							<div class="detailImgArea">
 							<% if (productfile[1] != null) { %>
 								<img width="100" height="100" id="detailImg1" class="detailImg" src="<%= request.getContextPath() %>/resources/productUploadFiles/<%= productfile[1].getChangename()%>">
-								<a href="<%= request.getContextPath() %>/resources/productUploadFiles/<%= productfile[1].getChangename()%>" download="<%= productfile[1].getOriginname()%>"><button type="button">다운로드</button></a>
+								<a href="<%= request.getContextPath() %>/resources/productUploadFiles/<%= productfile[1].getChangename()%>" download="<%= productfile[1].getOriginname()%>"><button class="downBtn" type="button">다운로드</button></a>
 							<% } else { %>
 								<img width="100" height="100" id="detailImg1" class="detailImg" src="<%= request.getContextPath() %>/resources/images/no-image.png">
 							<% } %>
@@ -136,7 +150,7 @@
 							<% if (productfile[2] != null) { %>
 								<img width="100" height="100" id="detailImg2" class="detailImg" src="<%= request.getContextPath() %>/resources/productUploadFiles/<%= productfile[2].getChangename()%>">
 								<a href="<%= request.getContextPath() %>/resources/productUploadFiles/<%= productfile[2].getChangename()%>" download="<%= productfile[2].getOriginname()%>">
-									<button type="button">다운로드</button>
+									<button class="downBtn" type="button">다운로드</button>
 								</a>
 							<% } else { %>
 								<img width="100" height="100" id="detailImg2" class="detailImg" src="<%= request.getContextPath() %>/resources/images/no-image.png">
@@ -147,7 +161,7 @@
 							<div class="detailImgArea">
 							<% if (productfile[3] != null) { %>
 								<img width="100" height="100" id="detailImg3" class="detailImg" src="<%= request.getContextPath() %>/resources/productUploadFiles/<%= productfile[3].getChangename()%>">
-								<a href="<%= request.getContextPath() %>/resources/productUploadFiles/<%= productfile[3].getChangename()%>" download="<%= productfile[3].getOriginname()%>"><button type="button">다운로드</button></a>
+								<a href="<%= request.getContextPath() %>/resources/productUploadFiles/<%= productfile[3].getChangename()%>" download="<%= productfile[3].getOriginname()%>"><button class="downBtn" type="button">다운로드</button></a>
 							<% } else { %>
 								<img width="100" height="100" id="detailImg3" class="detailImg" src="<%= request.getContextPath() %>/resources/images/no-image.png">
 							<% } %>
@@ -171,9 +185,9 @@
 				<br>
 		</div>
 		<div align="center">
-			<button onclick="location.href='<%= request.getContextPath() %>/productList.pr'">돌아가기</button>
+			<button class="normalBtn" onclick="location.href='<%= request.getContextPath() %>/productList.pr'">돌아가기</button>
 			<!-- if(m != null && m.getUserName().equals(b.getBwriter())) -->
-			<button onclick="location.href='<%= request.getContextPath() %>/pUpView.pr?pno='+<%=p.getPno()%>">수정하기</button>
+			<button class="normalBtn" onclick="location.href='<%= request.getContextPath() %>/pUpView.pr?pno='+<%=p.getPno()%>">수정하기</button>
 		</div>
 	</div>
 

@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.meiri.jsp.product.model.service.ProductService;
 import com.meiri.jsp.product.model.vo.Product;
+import com.meiri.jsp.product.model.vo.ProductFilesList;
 import com.meiri.jsp.review.model.service.ReviewService;
-
 import com.meiri.jsp.review.model.vo.ReviewView;
 
 /**
@@ -39,15 +39,27 @@ public class productSelectOne extends HttpServlet {
 		
 		Product p = new ProductService().selectOne(pcode);
 		System.out.println(p);
+		ProductFilesList pf1 = new ProductService().productDetailImageList1(pcode);
+		ArrayList<ProductFilesList> pflist2 = new ProductService().productDetailImageList2(pcode);
+		ProductFilesList pf3 = new ProductService().productDetailImageList3(pcode);
+		
 		ArrayList<ReviewView> rvlist = new ReviewService().selectList(pcode);
 		System.out.println("rlist = " + rvlist);
 		String page = "";
 		
+		//System.out.println("pf1 :" + pf1 );
+		//System.out.println("pflist2" + pflist2);
+		//System.out.println("pf3 :" + pf3 );
+		//System.out.println("pflist2 :" + pflist2 );
+		//System.out.println("pflist3 :" + pflist3 );
 		
 		
 		if(p != null) {
 			request.setAttribute("product", p);
 			request.setAttribute("rvlist", rvlist);
+			request.setAttribute("pf1", pf1);
+			request.setAttribute("pflist2", pflist2);
+			request.setAttribute("pf3", pf3);
 			
 			
 			page = "views/product/productDetail.jsp";

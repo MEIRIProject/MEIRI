@@ -5,14 +5,13 @@
     								com.meiri.jsp.product.model.vo.*,
     								java.util.*"%>
 <%
-	Member m = (Member) session.getAttribute("member");
-	
 	Product p = (Product)request.getAttribute("product");
 	ArrayList<ReviewView> rvlist = (ArrayList<ReviewView>)request.getAttribute("rvlist");
-
+	
+	ProductFilesList pf1 = (ProductFilesList)request.getAttribute("pf1");
+	ArrayList<ProductFilesList> pflist2 = (ArrayList<ProductFilesList>)request.getAttribute("pflist2");
+	ProductFilesList pf3 = (ProductFilesList)request.getAttribute("pf3");
 %>
-
-
 
 <!DOCTYPE html>
 <html>
@@ -162,11 +161,11 @@ form hr {
 /* 제품 상세설명 css */
 .row2 {
 	text-align: center;
-	margin-right: 400px;
+	margin-right: -10%;
 	padding-top: 8px;
 	padding-bottom: 8px;
 	background: #e8f0f2;
-	margin-left: 300px;
+	margin-left: -10%;
 	border-radius: 15px;
 	border: none;
 }
@@ -236,51 +235,54 @@ form hr {
 	margin-right: 40px;
 }
 
-.size, .color, .quantity {
-	margin-right: 40px;
-}
+
 </style>
 </head>
 <body>
+<%@ include file="../common/header.jsp" %>
 
 	<div class="width">
 		<section class="product_info">
 			<div class="container">
 				<div class="row"
-					style="margin-left: 350px; margin-right: 350px; display: flex">
+					style="margin-left: auto; margin-right: auto; display: flex; width:100%;">
 					<div class="product_pictures" style="float: left; width: 50%;">
-						<img src="../../resources/images/product/2.png" class="big_img">
+					
+						<img src="<%= request.getContextPath() %>/resources/productUploadFiles/<%= pf1.getChangename() %>" class="big_img" width=200px, height=200px>
+						
 						<ul class="thumb_img">
-							<li class="active"><img
-								src="../../resources/images/product/2.png" data-target="2.png"></li>
-							<li><img src="../../resources/images/product/3.png"
-								data-target="3.png"></li>
-							<li><img src="../../resources/images/product/4.jpg"
-								data-target="4.jpg"></li>
+						
+					<!-- 		<li class="active"><img src="../../resources/images/product/2.png" data-target="2.png"></li>
+							<li><img src="../../resources/images/product/3.png"	data-target="3.png"></li>
+							<li><img src="../../resources/images/product/4.jpg" data-target="4.jpg"></li>
+					 -->		
+							<% for(ProductFilesList pflist : pflist2) {%>
+								<li><img src="<%= request.getContextPath() %>/resources/productUploadFiles/<%= pflist.getChangename() %>" width=150px, height=150px></li>	
+							<%} %>
 						</ul>
 					</div>
 				<form action="<%= request.getContextPath() %>/Detailbuy.pd" method="post">
-					<div class="proudct_specs" style="float: right; width: 50%">
+					<div style="margin-top:10%; margin-bottom:10%;">
 						<h2>
-							<input type="text" name="pname" value="<%= p.getPname()%>" readonly>
+							<input type="text" name="pname" value="<%= p.getPname()%>" style="border:none; font-size:30px; font-weight:bold; color:grey;" readonly >
 						</h2>
 						<h3>
-							<input type="text" name="ptitle" value="<%= p.getPtitle()%>" readonly>
+							<input type="text" name="ptitle" value="<%= p.getPtitle()%>" style="border:none; font-size:20px; font-weight:bold; color:grey;" readonly>
 						</h3>
 							<input type="hidden" name="pcode" value="<%= p.getPcode()%>" readonly>
 							<hr />
-							<div class="option" style="display: flex; width: 600px;">
+							<div class="option" style="display: flex; width: 600px; margin-top:20px;">
 								<div class="size">
 									<h4>타입</h4>
 									<input type="radio" id="a_type" name="a_type" value="<%= p.getPtypea() %>">
-									<label for="a_type">타입 A : </label> -
+									<label for="a_type">A</label> -
 									<% if(p.getPtypeb() != null) {%>
 									<input type="radio" id="b_type"	name="b_type" value="<%= p.getPtypeb() %>" checked> 
-									<label for="b_type">타입 B: </label> - 
+									<label for="b_type">B</label> - 
 									<% } %>
 									<% if(p.getPtypec() != null) {%>
 									<input type="radio" id="c_type" name="c_type" value="<%= p.getPtypec() %>">
-									<label for="c_type">타입 C: </label>
+									<label for="c_type">C</label>
 									<% } %>
 								</div>
 								<div class="color">
@@ -294,15 +296,15 @@ form hr {
 								</div>
 								<div class="quantity">
 									<h4>수량</h4>
-									<span class="plus">+</span> 
-									<input type="text" name="productQuantity" readonly	value="1"> 
 									<span class="minus">-</span>
+									<input type="text" name="productQuantity" readonly	value="1"> 
+									<span class="plus">+</span> 
 								</div>
 							</div>
 							<hr />
 							<div class="order_summary"
 								style="display: inline-block; width: 600px;">
-								<div class="total_price" style="float: left;">
+								<div class="total_price" style="float: left; margin-top:20px;">
 									<h4>가격</h4>
 									<span class="price"><%= p.getPrice() %>원</span>
 									<input type="hidden" name="productPrice" value="<%= p.getPrice()%>">
@@ -327,11 +329,11 @@ form hr {
 				<div class="row2">
 					<h1>
 						제품 설명
-						</h2>
+						</h1>
 				</div>
 				<div class="product_content"
 					style="display: flex; justify-content: center; margin-right: 100px; margin-top: 80px;">
-					<img src="../../resources/images/product/5.gif" width="1000px"
+					<img src="<%= request.getContextPath() %>/resources/productUploadFiles/<%= pf3.getChangename() %>" width="1000px"
 						height="100%";>
 				</div>
 				<div></div>
@@ -370,7 +372,7 @@ form hr {
 						</div>
 					</div>
 					<div class="review_writeright"
-						style="margin-top: 140px; margin-left: 30px;">
+						style="margin-top: 210px; margin-left: 10px;">
 						<button onclick="reConfirm(this)">리뷰 등록</button>
 						</form>
 						<!-- 리뷰 내용과 파일, 작성자정보 보내야함 -->
@@ -379,7 +381,46 @@ form hr {
 			</div>
 		</div>
 			
-		<div>
+		<section class="product_review">
+         <div class="container">
+            <hr>
+            <div class="row3">
+               <h1>제품 리뷰</h1>
+            </div>
+            <div class="reviewlist">
+            <% for(int i = 0 ; i < rvlist.size(); i++){%>
+               <div class="containers" style="width : 100%; display: flex; justify-content: center; ">
+                  <div class="review_item">
+                        <div class="review_list" style="height:170px;">
+                        <div class="list_left" style="width: 80%; display: flex;" >
+                           <div style="width: 200px; margin-top:10px; margin-bottom: 10px; margin-right: 10px;">
+                              <img src="<%= request.getContextPath() %>/resources/reviewUploadFiles/<%=rvlist.get(i).getChangename()%>" style="width:100%;" id="reviewImg" src="img/5.gif">
+                           </div>
+                           <div><p><%=rvlist.get(i).getRcontent()%></p>
+                           </div>
+                        </div>
+                        <div class="list_right" style="margin-left: 55px;">
+                           <br>
+                           <div>
+                              <u style="color:grey">작성자</u><br><strong><%=rvlist.get(i).getUserid()%></strong>
+                           </div>   
+                           <br>
+                           <div>
+                              <u style="color:grey">작성일자</u><br><strong><%=rvlist.get(i).getRdate()%></strong>
+                           </div>
+                        </div>
+                     </div>
+                   
+                  </div>
+                </div>
+            <% } %>
+            </div>
+   		</div>
+</section>   
+			
+			
+			
+		<!-- <div>
 			<% for(int i = 0 ; i < rvlist.size(); i++){%>
 				<p><%=rvlist.get(i).getUserid()%></p>
 				<p><%=rvlist.get(i).getRcontent()%></p>
@@ -390,9 +431,7 @@ form hr {
 				
 			<% } %>
 		</div>
-		
-	</div>
-
+		 -->
 	<!-- 사진 미리보기 -->
 	<script>
 		function loadImg(img, num) {
@@ -418,6 +457,8 @@ form hr {
 	<br>
 	<br>
 	<br>
+	<%@ include file="../common/footer.jsp" %>
+	
 </body>
 <script>
 	var $productPictures = $('.product_pictures'), $bigImg = $productPictures

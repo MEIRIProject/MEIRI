@@ -30,11 +30,11 @@ public class orderConfirm extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
-		Member m = (Member)session.getAttribute("loginUser");
-		String userid = m.getUserid();
+		//HttpSession session = request.getSession();
+		//Member m = (Member)session.getAttribute("member");
+		//String userid = m.getUserid();
 		
-		request.setAttribute("userid", userid);
+		//request.setAttribute("userid", userid);
 		
 		String page="views/order/orderConfirm.jsp";
 		request.getRequestDispatcher(page).forward(request, response);		

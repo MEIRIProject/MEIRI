@@ -1,8 +1,3 @@
-/**
-* @author    Ninodezign.com http://www.ninodezign.com
-* @copyright Copyright (C) 2016 Ninodezign.com. All rights reserved.
-* @license   Ninodezign.com Proprietary License
-*/
 /* ============================== DEFAULT HTML ============================== */
 @import 'https://fonts.googleapis.com/css?family=Montserrat:400,700';
 @import 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700';
@@ -246,14 +241,17 @@ img.img-full-width {
    opacity: 1;
 }
 /* =============== LAYOUT - HEADER AREA =============== */
+
 /*메인 배경 화면 부분*/
 #nino-header {
    position: relative;
    font-family: 'Montserrat', sans-serif;
-   background: url(../images/bg-header.jpg) no-repeat center center / cover;
+ /*    background: url(../images/meiri-company.jpg) no-repeat center center / cover; */
    width:100vw;
    height:100vh;
 }
+
+
 #nino-header:after {
    content: "";
    position: absolute;
@@ -264,7 +262,7 @@ img.img-full-width {
    background: rgba(243,129,129,0.9); /* fallback for old browsers */ /* Chrome 10-25, Safari 5.1-6 */
    background: -webkit-linear-gradient(top, rgba(243,129,129,0.9), rgba(252, 227, 138, 0.9));
    background: -o-linear-gradient(top, rgba(243,129,129,0.9), rgba(252, 227, 138, 0.9));
-   background: linear-gradient(to bottom, rgba(166,185,198,0.9), rgba(49, 86, 112, 0.9)); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+   background: linear-gradient(to bottom,  rgba(31, 118, 188, 0.9), rgba(245,167,76,0.9)); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 /*=================*/
 #nino-headerInner {
@@ -306,7 +304,7 @@ img.img-full-width {
 }
 /*메인 화면의 아래 1,2,3,4 메뉴 호버안했을 때 */
 #nino-slider .carousel-indicators li .inner {
-   border-top: 2px solid #1d2c71;
+   border-top: 2px solid #2c3e50;
    position: relative;
    color: #faf3e0;
    text-transform: uppercase;   
@@ -326,7 +324,7 @@ img.img-full-width {
    top: -2px;
    width: 60px;
    height: 2px;
-   background: #1f76bc;
+   background: #2c3e50;
 }
 #nino-slider .carousel-indicators li .number {
    font-weight: 700;
@@ -415,18 +413,28 @@ img.img-full-width {
 .head_dept02{
    position:absolute;
    width:100%;
-   background: #1d2c71;
+   background: #2c3e50;
    display:none;
+   height : 30px;
+   transition : all 5s;
+}
+
+.head_dept02 > ul{
+	margin-left:50%;
+	transition : all 5s;
 }
 
 .head_dept02 > ul > li{
    display:inline-block;
    font-size:15px;
    padding: 0 10px;
+   margin-top:5px;
+   transition : all 5s;
 }
 
 .head_dept02 > ul > li > a{
    color: snow;
+   transition : all 5s;
 }
 
 
@@ -945,7 +953,7 @@ section {
 /* =============== LAYOUT - FOOTER AREA =============== */
 footer {
    padding-top: 50px;
-   background:  #1d2c71;
+   background:  #2c3e50;
 }
 footer .nino-colHeading {
    margin: 0 0 25px;
@@ -1108,7 +1116,7 @@ footer .nino-copyright {
    display: none;
    cursor: pointer;
    z-index: 2;
-   background:  #1d2c71 url(../images/go-to-top.png) center center no-repeat;
+   background:  #2c3e50 url(../images/go-to-top.png) center center no-repeat;
    border-top-left-radius:50px;
    border-top-right-radius:50px;
    border-bottom-left-radius:50px;
@@ -1508,7 +1516,7 @@ img {vertical-align: middle;}
 }
 
 .active, .dot:hover {
-  background-color: #717171;
+  background-color: none;
 }
 
 /* Fading animation */
@@ -1555,3 +1563,182 @@ img {vertical-align: middle;}
    margin-bottom:10%;
 }
 
+/*메인 배경 캐러셀*/
+.cb-slideshow,
+.cb-slideshow:after { 
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    z-index: 0; 
+}
+.cb-slideshow:after { 
+    content: '';
+    background: transparent url(../images/pattern.png) repeat top left; 
+}
+.cb-slideshow li span { 
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    color: transparent;
+    background-size: cover;
+    background-position: 50% 50%;
+    background-repeat: none;
+    opacity: 0;
+    z-index: 0;
+	-webkit-backface-visibility: hidden;
+    -webkit-animation: imageAnimation 36s linear infinite 0s;
+    -moz-animation: imageAnimation 36s linear infinite 0s;
+    -o-animation: imageAnimation 36s linear infinite 0s;
+    -ms-animation: imageAnimation 36s linear infinite 0s;
+    animation: imageAnimation 36s linear infinite 0s; 
+}
+.cb-slideshow li div { 
+    z-index: 1000;
+    position: absolute;
+    bottom: 30px;
+    left: 0px;
+    width: 100%;
+    text-align: center;
+    opacity: 0;
+    color: #fff;
+    -webkit-animation: titleAnimation 36s linear infinite 0s;
+    -moz-animation: titleAnimation 36s linear infinite 0s;
+    -o-animation: titleAnimation 36s linear infinite 0s;
+    -ms-animation: titleAnimation 36s linear infinite 0s;
+    animation: titleAnimation 36s linear infinite 0s; 
+}
+.cb-slideshow li div h3 { 
+    font-family: 'BebasNeueRegular', 'Arial Narrow', Arial, sans-serif;
+    font-size: 240px;
+    padding: 0;
+    line-height: 200px; 
+}
+
+#nino-header .cb-slideshow li:nth-child(1) span { 
+    background-image: url(../images/meiri-company.jpg) 
+}
+#nino-header .cb-slideshow li:nth-child(2) span { 
+    background-image: url(../images/meiri-company2.jpg);
+    -webkit-animation-delay: 6s;
+    -moz-animation-delay: 6s;
+    -o-animation-delay: 6s;
+    -ms-animation-delay: 6s;
+    animation-delay: 6s; 
+}
+#nino-header .cb-slideshow li:nth-child(3) span { 
+    background-image: url(../images/meiri-company3.jpg);
+    -webkit-animation-delay: 12s;
+    -moz-animation-delay: 12s;
+    -o-animation-delay: 12s;
+    -ms-animation-delay: 12s;
+    animation-delay: 12s; 
+}
+#nino-header .cb-slideshow li:nth-child(4) span { 
+    background-image: url(../images/meiri-company4.jpg);
+    -webkit-animation-delay: 18s;
+    -moz-animation-delay: 18s;
+    -o-animation-delay: 18s;
+    -ms-animation-delay: 18s;
+    animation-delay: 18s; 
+}
+#nino-header .cb-slideshow li:nth-child(5) span { 
+    background-image: url(../images/meiri-company5.jpg);
+    -webkit-animation-delay: 24s;
+    -moz-animation-delay: 24s;
+    -o-animation-delay: 24s;
+    -ms-animation-delay: 24s;
+    animation-delay: 24s; 
+}
+#nino-header .cb-slideshow li:nth-child(6) span { 
+    background-image: url(../images/meiri-company6.jpg);
+    -webkit-animation-delay: 30s;
+    -moz-animation-delay: 30s;
+    -o-animation-delay: 30s;
+    -ms-animation-delay: 30s;
+    animation-delay: 30s; 
+}
+#nino-header .cb-slideshow li:nth-child(2) div { 
+    -webkit-animation-delay: 6s;
+    -moz-animation-delay: 6s;
+    -o-animation-delay: 6s;
+    -ms-animation-delay: 6s;
+    animation-delay: 6s; 
+}
+#nino-header .cb-slideshow li:nth-child(3) div { 
+    -webkit-animation-delay: 12s;
+    -moz-animation-delay: 12s;
+    -o-animation-delay: 12s;
+    -ms-animation-delay: 12s;
+    animation-delay: 12s; 
+}
+#nino-header .cb-slideshow li:nth-child(4) div { 
+    -webkit-animation-delay: 18s;
+    -moz-animation-delay: 18s;
+    -o-animation-delay: 18s;
+    -ms-animation-delay: 18s;
+    animation-delay: 18s; 
+}
+#nino-header .cb-slideshow li:nth-child(5) div { 
+    -webkit-animation-delay: 24s;
+    -moz-animation-delay: 24s;
+    -o-animation-delay: 24s;
+    -ms-animation-delay: 24s;
+    animation-delay: 24s; 
+}
+#nino-header .cb-slideshow li:nth-child(6) div { 
+    -webkit-animation-delay: 30s;
+    -moz-animation-delay: 30s;
+    -o-animation-delay: 30s;
+    -ms-animation-delay: 30s;
+    animation-delay: 30s; 
+}
+/* Animation for the slideshow images */
+@-webkit-keyframes imageAnimation { 
+    0% { opacity: 0;
+    -webkit-animation-timing-function: ease-in; }
+    8% { opacity: 1;
+         -webkit-animation-timing-function: ease-out; }
+    17% { opacity: 1 }
+    25% { opacity: 0 }
+    100% { opacity: 0 }
+}
+@-moz-keyframes imageAnimation { 
+    0% { opacity: 0;
+    -moz-animation-timing-function: ease-in; }
+    8% { opacity: 1;
+         -moz-animation-timing-function: ease-out; }
+    17% { opacity: 1 }
+    25% { opacity: 0 }
+    100% { opacity: 0 }
+}
+@-o-keyframes imageAnimation { 
+    0% { opacity: 0;
+    -o-animation-timing-function: ease-in; }
+    8% { opacity: 1;
+         -o-animation-timing-function: ease-out; }
+    17% { opacity: 1 }
+    25% { opacity: 0 }
+    100% { opacity: 0 }
+}
+@-ms-keyframes imageAnimation { 
+    0% { opacity: 0;
+    -ms-animation-timing-function: ease-in; }
+    8% { opacity: 1;
+         -ms-animation-timing-function: ease-out; }
+    17% { opacity: 1 }
+    25% { opacity: 0 }
+    100% { opacity: 0 }
+}
+@keyframes imageAnimation { 
+    0% { opacity: 0;
+    animation-timing-function: ease-in; }
+    8% { opacity: 1;
+         animation-timing-function: ease-out; }
+    17% { opacity: 1 }
+    25% { opacity: 0 }
+    100% { opacity: 0 }
+}

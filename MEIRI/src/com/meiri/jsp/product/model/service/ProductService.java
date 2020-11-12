@@ -35,6 +35,39 @@ public class ProductService {
     	  close(con);
 		return pvlist;
 	}
+
+
+	public ProductFilesList productDetailImageList1(int pcode) {
+		con = getConnection();
+		
+		ProductFilesList pf1 = pDAO.productDetailImageList1(con, pcode);
+		
+		
+		
+		close(con);
+		
+		return pf1;
+	}
+
+
+	public ArrayList<ProductFilesList> productDetailImageList2(int pcode) {
+		con = getConnection();
+		
+		ArrayList<ProductFilesList> pf2 = pDAO.productDetailImageList2(con, pcode);
+		
+		close(con);
+		return pf2;
+	}
+
+
+	public ProductFilesList productDetailImageList3(int pcode) {
+		con = getConnection();
+		
+		ProductFilesList pf3 = pDAO.productDetailImageList3(con, pcode);
+		
+		close(con);
+		return pf3;
+	}
       
    
    
