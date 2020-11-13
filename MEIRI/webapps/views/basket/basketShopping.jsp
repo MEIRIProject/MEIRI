@@ -3,8 +3,7 @@
                           java.util.*"%>
     
 <%
-   ArrayList<CartView> cav = 
-      (ArrayList<CartView>)request.getAttribute("cartlist");
+   ArrayList<CartView> cav = (ArrayList<CartView>)request.getAttribute("cartlist");
 %>
 <!DOCTYPE html>
 <html>
@@ -103,7 +102,7 @@
                   <tr>
                      <td style="display : none;"><%=cav.get(i).getCartcode() %></td>
                      
-                     <td><input  type='checkbox' name='choice' clsaa="check"
+                     <td><input  type='checkbox' name='choice' class="check"
                         value='<%=cav.get(i).getCartcode()%>'>
                      <td><img
                         src="/meiri/resources/productUploadFiles/<%=cav.get(i).getChangename()%>"
@@ -134,10 +133,10 @@
             <hr>
             <div class="paytotal" style="margin-right:50px;">
             <h3 align="right">총 결제금액 : <span id="totalPrice">0</span>
-            </div>
             <input type="hidden" name="totalPrice" id="totalPrice" value="0"></h3>
-            <div class="btn">
             <button class="btn10" onclick="paymentBasket();">주문</button>
+            </div>
+            <div class="btn">
             </div>
            
            
