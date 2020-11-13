@@ -37,7 +37,7 @@
             pg : 'inicis',
             pay_method : 'card',
             merchant_uid : 'merchant_' + new Date().getTime(),
-            name : 'MEIRI<%=pname%>',
+            name : '<%=pname%>',
             amount : <%=totalPrice%>,
             buyer_email : '<%=useremail%>',
             buyer_name : '<%=userid%>',

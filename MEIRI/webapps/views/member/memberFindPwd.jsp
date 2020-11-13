@@ -154,13 +154,12 @@
    }%>
       $('#check_give').click(function() {
          showLoading();
-
          var userName = $('#userName').val();
          var userId = $('#userId').val();
          var email1 = $('#email1').val();
          var email2 = $('#email3').val();
 
-         $.ajax({
+          $.ajax({
             url : "/meiri/pwdCheck.me",
             type : "post",
             //data : { email : email , checkCode : checkCode},
@@ -171,11 +170,12 @@
                'email2' : email2
             },
             complete : function(data) {
-
             },
             success : function(data) {
+               
                if (data.ok) {
                   alert(data.message);
+                  location.href='/meiri/views/member/memberLoginForm.jsp';
                } else {
                   alert('error');
                }
@@ -183,11 +183,12 @@
             },
             error: function(){
                hideLoading();
-            }
+            } 
 
          });
-
+         
       });
+      
    </script>
    <!--================End Login Box Area =================-->
    <%@ include file="/views/common/footer.jsp"%>

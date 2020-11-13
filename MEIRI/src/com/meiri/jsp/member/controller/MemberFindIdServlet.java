@@ -1,6 +1,9 @@
 package com.meiri.jsp.member.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-
+import com.google.gson.Gson;
 import com.meiri.jsp.common.exception.MemberException;
 import com.meiri.jsp.member.model.service.MemberService;
 import com.meiri.jsp.member.model.vo.Member;
@@ -21,60 +24,66 @@ import com.meiri.jsp.member.model.vo.Member;
 @WebServlet("/findId.me")
 public class MemberFindIdServlet extends HttpServlet {
    private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public MemberFindIdServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
    /**
-    * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+    * @see HttpServlet#HttpServlet()
     */
-   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-      
+   public MemberFindIdServlet() {
+      super();
+      // TODO Auto-generated constructor stub
+   }
+
+   /**
+    * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+    *      response)
+    */
+   protected void doGet(HttpServletRequest request, HttpServletResponse response)
+         throws ServletException, IOException {
+      Map<String, Object> resultData = new HashMap<>();
+      Gson gson = new Gson();
+      response.setContentType("application/json;charset=UTF-8");// json문자열로 응답하기위해 response contentType을 json으로 설정.
+      PrintWriter out = response.getWriter();
+
       request.setCharacterEncoding("UTF-8");
-      
+
       String userName = request.getParameter("userName");
       String email = request.getParameter("email");
-      
+
       MemberService ms = new MemberService();
-      
+
       try {
          Member m = new Member();
          m.setUserName(userName);
          m.setEmail(email);
-         
-          System.out.println("servlet: " + m);
-         
-           m = ms.findId(m);
-         
+
+         System.out.println("servlet: " + m);
+
+         m = ms.findId(m);
+
          System.out.println("아이디 찾기 성공");
-         
-         RequestDispatcher view 
-            = request.getRequestDispatcher("views/member/findIdSuccess.jsp");
-         
-         HttpSession session = request.getSession(); 
-         
-         session.setAttribute("usersFindId", m);
-         view.forward(request, response);
-         
+
+
+         resultData.put("ok", true);
+         resultData.put("userId", m.getUserId());
+         out.print(gson.toJson(resultData));
+         out.flush();
+
       } catch (MemberException e) {
-         request.setAttribute("error-msg", "아이디 찾기 실패");
-         request.setAttribute("exception", e);
-         request.getRequestDispatcher("views/common/errorPage.jsp")
-             .forward(request, response);
+         e.printStackTrace();
+         resultData.put("ok", false);
+         resultData.put("message", e.getMessage());
+         out.print(gson.toJson(resultData));
+         out.flush();
       }
-      
+
    }
-   
 
    /**
-    * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+    * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+    *      response)
     */
-   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+   protected void doPost(HttpServletRequest request, HttpServletResponse response)
+         throws ServletException, IOException {
       // TODO Auto-generated method stub
       doGet(request, response);
    }

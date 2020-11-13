@@ -1,0 +1,12 @@
+*{ margin:0; padding:0;}
+li{ list-style:none;}
+img{ border:none;}
+body {overflow-x: hidden;}
+a{ text-decoration:none; color:#191919}
+.ul:after{ content:""; clear:both; height:0; display:block; visibility:hidden;}
+body, a {font-family: 'notokr-kr';font-weight:400; color: #191919;}
+input, button, select, textarea {font-family: 'notokr-kr';font-weight:500; outline: none;}
+button { cursor:pointer; outline:none; font-weight: 400;}
+
+
+

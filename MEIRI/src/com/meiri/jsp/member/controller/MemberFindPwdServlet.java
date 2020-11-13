@@ -37,7 +37,7 @@ public class MemberFindPwdServlet extends HttpServlet {
     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
     */
    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-       request.setCharacterEncoding("UTF-8");
+      request.setCharacterEncoding("UTF-8");
       
       String userName = request.getParameter("userName");
       String email =request.getParameter("email1") + "@" 
@@ -49,8 +49,7 @@ public class MemberFindPwdServlet extends HttpServlet {
          Member m = new MemberService().findPwd(userName, email, userId);
          
          
-         RequestDispatcher view 
-            = request.getRequestDispatcher("/pwdUpdate.me"); 
+         RequestDispatcher view = request.getRequestDispatcher("/pwdUpdate.me"); 
       
          HttpSession session = request.getSession(); 
          
@@ -97,4 +96,3 @@ public class MemberFindPwdServlet extends HttpServlet {
 
 
    }
-

@@ -49,7 +49,7 @@
                      <div style="text-align: center;margin-bottom: 15px;">등록한 이름과 이메일을 정확히 입력해주세요.</div>
                      <div style="display: flex;justify-content: center;">
                         <div style="width: 243px;">
-                           <form class="row login_form" action="/meiri/findId.me" method="post" id="contactForm" novalidate="novalidate"
+                           <form class="row login_form" id="contactForm" novalidate="novalidate"
                            onsubmit="return validate()">
                               <div class="col-md-12 form-group">
                                  <input type="text" class="form-control" id="userName" name="userName" placeholder="이름을 입력하세요.">
@@ -77,6 +77,29 @@
         <script src="/meiri/index.jsp"></script>
    
    <script>
+   
+   function findId(){
+      showLoading();
+      $.ajax({
+         url:'/meiri/findId.me',
+         type:'post',
+         data:$('.login_form').serialize(),
+         success:function(data){
+            if(data.ok){
+               alert('회원님의 아이디는 [ '+ data.userId +' ] 입니다.');
+            }else{
+               alert(data.message);
+            }
+            hideLoading();
+         },
+         error:function(err){
+            alert('error');
+            hideLoading();
+         }
+      });
+   }
+   
+  
         /* function validate() {
       var u_name = document.getElementById("u_name");
       var u_email = document.getElementById("u_email");
@@ -93,11 +116,6 @@
         } 
        
     }  */
-   function findId(){
-      $('#contactForm').submit();
-      event.preventDefault();
-      <%-- location.href="<%=request.getContextPath()%>/findId.me"; --%>
-   }
     
     function findPwd(){
        location.href="/meiri/views/member/memberFindPwd.jsp";
