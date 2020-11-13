@@ -16,9 +16,12 @@
 <meta charset="UTF-8">
 <title>제품 목록</title>
 <style>
-     .title h1{
+   /*   .title h1{
         color : #231d20;
         margin-bottom: 70px;
+    }
+    .outer{
+       height:min-height;
     }
    .main{
         width : 600px;
@@ -64,17 +67,23 @@
            text-align: center;
     }
     .pagingArea{
-        margin-top:500px;
-       margin-left:400px;
+        margin-top:30px;
+      align:center;
+      width:1000px;
     }
     .btnArea{
     width:700px;
        margin-left:150px;
     }
+    */
+
+    }
+   
 </style>
    <script src="/meiri/resources/js/jquery-3.5.1.min.js"></script>
 </head>
 <body>
+<%@ include file="/views/common/header.jsp" %>
 <br><br><br>
     <div class="main">
        <div class="outer">
@@ -84,7 +93,7 @@
                 </div>
             </div>
             <hr style="width:1000px; margin-bottom:35px">
-      <div class="tableArea" style="width:900px;">
+      <div style="width:900px;">
          <table align="center" id="listArea">
             <tr>
                <th width="100px">상품번호</th>
@@ -95,8 +104,9 @@
                <th width="150px">타 입C</th>               
                <th width="100px">색 깔</th>
             </tr>
+            <tr style="height:10px;"></tr>
             <% for(Product b : list) { %>
-            <tr>
+            <tr class="listArea" style="text-align:center">
                <!-- 공지사항 DB테이블 보고 만들 예정 -->
                <input type="hidden" value="<%= b.getPno() %>">
                <td><%= b.getPno() %></td>
@@ -107,7 +117,7 @@
                <td><%= b.getPtypec() %></td>
                <td><%= b.getPcolor() %></td>
                 </tr>
-                <tr><td><hr class="hr2"></td><td><hr class="hr2"></td><td><hr class="hr2"></td><td><hr class="hr2"></td><td><hr class="hr2"><td><hr class="hr2"></td><td><hr class="hr2"></td></tr>
+                <tr><td><hr class="hr3"></td><td><hr class="hr3"></td><td><hr class="hr3"></td><td><hr class="hr3"></td><td><hr class="hr3"><td><hr class="hr3"></td><td><hr class="hr3"></td></tr>
              
             <% } %>
          </table>
@@ -142,7 +152,7 @@
       
       </div>
       
-      <div class="btnArea" align="center">
+      <div class="btn" align="center">
          
          <br><br>
             <button onclick="location.href='views/admin/product/productInsertForm.jsp'">
@@ -166,10 +176,10 @@
       
    </div>
 
-
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<%@ include file="/views/common/footer.jsp" %>
 </body>
 </html>
-
 
 
 

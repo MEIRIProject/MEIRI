@@ -20,7 +20,7 @@ import com.meiri.jsp.member.model.vo.Member;
  */
 @WebServlet("/findId.me")
 public class MemberFindIdServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+   private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -30,53 +30,53 @@ public class MemberFindIdServlet extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		request.setCharacterEncoding("UTF-8");
-		
-		String userName = request.getParameter("userName");
-		String email = request.getParameter("email");
-		
-		MemberService ms = new MemberService();
-		
-		try {
-			Member m = new Member();
-			m.setUserName(userName);
-			m.setEmail(email);
-			
-			 System.out.println("servlet: " + m);
-			
-			  m = ms.findId(m);
-			
-			System.out.println("아이디 찾기 성공");
-			
-			RequestDispatcher view 
-				= request.getRequestDispatcher("views/member/findIdSuccess.jsp");
-			
-			HttpSession session = request.getSession(); 
-			
-			session.setAttribute("usersFindId", m);
-			view.forward(request, response);
-			
-		} catch (MemberException e) {
-			request.setAttribute("error-msg", "아이디 찾기 실패");
-			request.setAttribute("exception", e);
-			request.getRequestDispatcher("views/errorPage.jsp")
-		       .forward(request, response);
-		}
-		
-	}
-	
+   /**
+    * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+    */
+   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+      
+      request.setCharacterEncoding("UTF-8");
+      
+      String userName = request.getParameter("userName");
+      String email = request.getParameter("email");
+      
+      MemberService ms = new MemberService();
+      
+      try {
+         Member m = new Member();
+         m.setUserName(userName);
+         m.setEmail(email);
+         
+          System.out.println("servlet: " + m);
+         
+           m = ms.findId(m);
+         
+         System.out.println("아이디 찾기 성공");
+         
+         RequestDispatcher view 
+            = request.getRequestDispatcher("views/member/findIdSuccess.jsp");
+         
+         HttpSession session = request.getSession(); 
+         
+         session.setAttribute("usersFindId", m);
+         view.forward(request, response);
+         
+      } catch (MemberException e) {
+         request.setAttribute("error-msg", "아이디 찾기 실패");
+         request.setAttribute("exception", e);
+         request.getRequestDispatcher("views/common/errorPage.jsp")
+             .forward(request, response);
+      }
+      
+   }
+   
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
+   /**
+    * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+    */
+   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+      // TODO Auto-generated method stub
+      doGet(request, response);
+   }
 
 }

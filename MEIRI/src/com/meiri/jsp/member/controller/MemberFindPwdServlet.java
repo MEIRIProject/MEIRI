@@ -23,7 +23,7 @@ import com.meiri.jsp.member.model.vo.Member;
  */
 @WebServlet("/findPwd.me")
 public class MemberFindPwdServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+   private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -33,69 +33,68 @@ public class MemberFindPwdServlet extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+   /**
+    * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+    */
+   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
        request.setCharacterEncoding("UTF-8");
-		
-		String userName = request.getParameter("userName");
-		String email =request.getParameter("email1") + "@" 
-	               + request.getParameter("email2");
-		String userId = request.getParameter("userId");
+      
+      String userName = request.getParameter("userName");
+      String email =request.getParameter("email1") + "@" 
+                  + request.getParameter("email2");
+      String userId = request.getParameter("userId");
 
-		try {
-			
-			Member m = new MemberService().findPwd(userName, email, userId);
-			
-			
-			RequestDispatcher view 
-				= request.getRequestDispatcher("/pwdUpdate.me"); 
-		
-			HttpSession session = request.getSession(); 
-			
-			System.out.println("findPwd servlet");
-		
-			session.setAttribute("usersFindId", m);
-			view.forward(request, response);
-		
-		} catch (MemberException e) {
-			request.setAttribute("msg", "비밀번호 찾기 실패");
-			request.setAttribute("exception", e);
-			request.getRequestDispatcher("views/errorPage.jsp")
-		       .forward(request, response);
-		}
-		
-	}
+      try {
+         
+         Member m = new MemberService().findPwd(userName, email, userId);
+         
+         
+         RequestDispatcher view 
+            = request.getRequestDispatcher("/pwdUpdate.me"); 
+      
+         HttpSession session = request.getSession(); 
+         
+         System.out.println("findPwd servlet");
+      
+         session.setAttribute("usersFindId", m);
+         view.forward(request, response);
+      
+      } catch (MemberException e) {
+         request.setAttribute("msg", "비밀번호 찾기 실패");
+         request.setAttribute("exception", e);
+         request.getRequestDispatcher("views/errorPage.jsp")
+             .forward(request, response);
+      }
+      
+   }
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
-	
+   /**
+    * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+    */
+   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+      // TODO Auto-generated method stub
+      doGet(request, response);
+   }
+   
   public  static String getSHA512(String pwd) {
-		
-		try {
-			MessageDigest md = MessageDigest.getInstance("SHA-512");
-			byte[] bytes = pwd.getBytes(Charset.forName("UTF-8"));
-			md.update(bytes);
-			
-			return Base64.getEncoder().encodeToString(md.digest());
-			
-		} catch (NoSuchAlgorithmException e) {
-			
-			System.out.println("암호화 에러 발생!");
-			e.printStackTrace();
-			
-			return null;
-		}
-	}
-	
+      
+      try {
+         MessageDigest md = MessageDigest.getInstance("SHA-512");
+         byte[] bytes = pwd.getBytes(Charset.forName("UTF-8"));
+         md.update(bytes);
+         
+         return Base64.getEncoder().encodeToString(md.digest());
+         
+      } catch (NoSuchAlgorithmException e) {
+         
+         System.out.println("암호화 에러 발생!");
+         e.printStackTrace();
+         
+         return null;
+      }
+   }
+   
 
 
-	}
-
+   }
 

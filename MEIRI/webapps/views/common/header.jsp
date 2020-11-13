@@ -128,13 +128,50 @@
  .title:hover{
          cursor:pointer;
       }
+      
+#loading_background {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #0000002e;
+    z-index: 9998;
+   }
+   #loading {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    }
+    #loading > div {
+       background-image: url('/meiri/resources/images/loading.gif');
+       border-radius: 50%;
+       background-size: cover;
+       background-position: center;
+       background-color: #efefef;
+        width: 110px;
+       height: 110px;
+   }
    
    </style>
    
 </head>
 
 <body data-target="#nino-navbar" data-spy="scroll">
-
+<script>
+   function showLoading(){
+      $('#loading_box').show();
+   }
+   function hideLoading(){
+      $('#loading_box').hide();
+   }
+</script>
 
 
    <!-- Header -->
@@ -179,17 +216,17 @@
                <div class="nino-menuItem pull-right">
                   <div class="collapse navbar-collapse pull-left" id="nino-navbar-collapse">
                      <ul class="nav navbar-nav">
-                        <li><a href='<%=request.getContextPath()%>/index.pl'" class="nino-search"><i class="mdi mdi-magnify nino-icon"></i></a></li>
-                        <li><a href='<%=request.getContextPath()%>/index.pl'">Home <span class="sr-only">(current)</span></a></li>
+                        <li><a onclick="location.href='<%=request.getContextPath()%>/index.pl'" class="nino-search"><i class="mdi mdi-magnify nino-icon"></i></a></li>
+                        <li><a onclick="location.href='<%=request.getContextPath()%>/index.pl'">Home <span class="sr-only">(current)</span></a></li>
+                        <li><a onclick="location.href='<%=request.getContextPath()%>/index.pl#nino-services'">본사 소개</a></li>
                         <li>
-                           <a href='<%=request.getContextPath()%>/index.pl' onmouseover="showhead_dept('head_dept02');" onmouseout="hidehead_dept();">제품 정보</a>
+                           <a onclick="location.href='<%=request.getContextPath()%>/index.pl#nino-story'" onmouseover="showhead_dept('head_dept02');" onmouseout="hidehead_dept();">제품 정보</a>
                         </li>
-                        <li><a href='<%=request.getContextPath()%>/index.pl'">본사 소개</a></li>
-                        <li><a href='<%=request.getContextPath()%>/index.pl'">오시는 길</a></li>
+                        <li><a onclick="location.href='<%=request.getContextPath()%>/index.pl#nino-map'">오시는 길</a></li>
                      </ul>
                   </div><!-- /.navbar-collapse -->
                   <ul class="nino-iconsGroup nav navbar-nav">
-                     <li><a href='<%=request.getContextPath()%>/index.pl'"><i class="mdi mdi-cart-outline nino-icon"></i></a></li>
+                     <li><a onclick="basketShopping()"><i class="mdi mdi-cart-outline nino-icon"></i></a></li>
                   </ul>
                </div>
             </div><!-- /.container-fluid -->
@@ -199,7 +236,13 @@
          
       </div>
    </header><!--/#header-->
-   
+   <script>
+   function basketShopping() {
+			
+			var userid = 'user01';
+            location.href = "<%= request.getContextPath() %>/selectCart.ca?userid=" + userid;
+		}
+   </script>
    
      <!-- javascript -->
    <script type="text/javascript" src="/meiri/resources/js/jquery.min.js"></script>   

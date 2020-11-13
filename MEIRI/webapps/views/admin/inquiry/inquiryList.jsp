@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+    <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="com.meiri.jsp.admin.inquiry.model.vo.*, java.util.*" %>
 <%@ page import="com.meiri.jsp.common.PageInfo" %>
 <%
@@ -16,7 +16,7 @@
 <meta charset="UTF-8">
 <title>1:1상담문의 목록</title>
 <style>
-     .title h1{
+   /*   .title h1{
         color : #231d20;
         margin-bottom: 70px;
     }
@@ -25,13 +25,15 @@
         display: inline-block;
         margin-left: 350px;
     }
+    .outer{
+    	height:min-height;
+    }
     .tableArea{
         margin-left:20px;
     }
     .hr2{
         border: none;
        border-top: 2px solid #edeff1;
-        margin-bottom:35px;
         margin-top:35px; 
         width:1000px;
     }
@@ -53,12 +55,14 @@
    background: #1f76bc;
    border-radius: 25px;
    border: none;
-  
+  margin-top:15px;
+   */
  }
 </style>
 <script src="/meiri/resources/js/jquery-3.5.1.min.js"></script>
 </head>
 <body>
+<%@ include file="/views/common/header.jsp" %>
 <br><br><br>
 <div class="main">
      <div class="outer">
@@ -67,7 +71,7 @@
           </div>
           <hr style="width:1000px"; margin-bottom:35px">
        <% for( Inquiry b : list ) { %>       
-       <div class="tableArea">
+       <div class="listArea">
            <div class="contentArea">
                <h3 class="title"><%= b.getInqtitle() %>     <input type="hidden" value="<%= b.getInqno() %>"></h3>
            </div>
@@ -76,15 +80,22 @@
                    작성자 : <%= b.getInqwriter() %> </p>
            </div>
        </div> 
-   <hr class="hr2">
+   <hr class="hr3">
             <% } %>
-            
-            <div class="btnArea" align="right">
-                
-                <br><br>
-                    <button class="btn" onclick="location.href='<%= request.getContextPath() %>/views/admin/adminPage.jsp'">관리자 페이지</button>
-                    
-                    <script>
+
+			<div class="btn" align="right">
+
+				<br>
+				<br>
+				  <% if( m != null && m.getUserId().equals("admin")){ %>
+				<button
+					onclick="location.href='<%= request.getContextPath() %>/views/admin/adminPage.jsp'">관리자
+					페이지</button>
+					<% } %>
+					 <button onclick="location.href='index.pl'">
+               돌아가기
+            </button>
+				<script>
                         $(function(){
                             $('.title').click(function(){
                                 var inqno = $(this).find('input').val();
@@ -93,17 +104,19 @@
                             });
                         });
                     </script>
-                        
-            </div>
-            
-        </div>
+
+			</div>
+
+		</div>
 
 </div>
-
-
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<%@ include file="/views/common/footer.jsp" %>
 </body>
 </html>
 
 
 
 
+
+    

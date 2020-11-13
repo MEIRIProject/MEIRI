@@ -76,7 +76,7 @@
        <div class="outer">
             <div class="headerArea">
                 <div class="title">
-                    <h1>내가 쓴 댓글 확인</h1>
+                    <h1>내가 쓴 리뷰 확인</h1>
                 </div>
             </div>
             <hr style="width:1000px; margin-bottom:35px">

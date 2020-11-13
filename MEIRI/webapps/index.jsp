@@ -39,6 +39,8 @@
 	href="resources/css/jquery.mCustomScrollbar.min.css" />
 <link rel="stylesheet" type="text/css"
 	href="resources/css/prettyPhoto.css" />
+	
+<link rel="stylesheet" type="text/css" href="resources/css/owl.carousel.min.css" />	
 <link rel="stylesheet" type="text/css" href="resources/css/unslider.css" />
 <link rel="stylesheet" type="text/css" href="resources/css/template.css" />
 
@@ -89,6 +91,16 @@
         width: 100%;  /* The width is the width of the web page */
 
        }   
+      
+.owl-nav{
+    background : none;
+    border: none;
+    color: #1f76bc;
+    font-size: 30px;
+    font-weight: bold;
+    margin-left:50%;
+    margin-top:5%;
+}      
       
 </style>
 
@@ -158,10 +170,10 @@
 								class="icon-bar"></span> <span class="icon-bar"></span> <span
 								class="icon-bar"></span>
 						</button>
-						<a class="navbar-brand" href="index.jsp"><img
+						<a class="navbar-brand" href="index.pl"><img
 							src="resources/images/meiri-logo.PNG" alt="" width=30px
 							height=30px style="margin-top: -5px;"/ ></a> <a
-							class="navbar-brand" href="index.jsp">
+							class="navbar-brand" href="index.pl">
 		                  <span style="color:black">M<span style="color:#1f76bc">E</span><span style="color:#f79521">I</span><span style="color:#1f76bc">R</span><span style="color:#f79521">I</span></a>					
 							</a>
 					</div>
@@ -175,20 +187,28 @@
 										class="mdi mdi-magnify nino-icon"></i></a></li>
 								<li class="active"><a href="#nino-header">Home <span
 										class="sr-only">(current)</span></a></li>
+								<li><a href="#nino-services">본사 소개</a></li>
 								<li onmouseover="showhead_dept('head_dept02');"
 									onmouseout="hidehead_dept();"><a href="#nino-story">제품
 										정보</a></li>
-								<li><a href="#nino-services">본사 소개</a></li>
 								<li><a href="#nino-map">오시는 길</a></li>
 							</ul>
 						</div>
 						<!-- /.navbar-collapse -->
 						<ul class="nino-iconsGroup nav navbar-nav">
-							<li><a href="#"><i
+							<li><a onclick="basketShopping()"><i
 									class="mdi mdi-cart-outline nino-icon"></i></a></li>
 						</ul>
 					</div>
 				</div>
+					<script>
+						function basketShopping() {
+						
+							var userid = 'user01';
+           				    location.href = "<%= request.getContextPath() %>/selectCart.ca?userid=" + userid;
+						}
+					</script>
+				
 				<!-- /.container-fluid -->
 				<div id="head_dept02" class="head_dept02"
 					onmouseover="showhead_dept('head_dept02');"
@@ -213,13 +233,30 @@
 						<h2 class="nino-sectionHeading" style="margin-top:15%">
 							<span class="nino-subHeading"></span> MEIRI
 						</h2>
-						<a href="#" class="nino-btn">안녕하세요 메이리입니다.</a>
+						<a href="#" class="nino-btn">밝고 따뜻한 빛을 선사하는 LED 조명 제조 전문 기업</a>
 					</div>
 				</div>
 			</section>
 		</div>
 	</header>
-
+	
+	
+	 <!-- Services
+    ================================================== -->
+    <section id="nino-services">
+    <div class="container2" style="width:1800px;">
+    
+       <div class="spaceb" style=" justify-content: space-between; display:flex; width:1800px;">
+      
+         <div class="profile" style="margin-left:400px;">
+            <img src="resources/images/yeon2.png">
+         </div>
+         <div class="profile" style="margin-right:300px;">
+            <img src="resources/images/yeon.png">
+         </div>
+      </div>
+    </div>
+    </section><!--/#nino-services-->
 
 
 	<!--/#header-->
@@ -294,56 +331,48 @@
 			</div>
 		</div>
 	</section>
-	<!--/#nino-whatWeDo-->
-
+	
 	<section id="nino-story" class="nino-testimonial bg-white">
 		<div class="container">
-			<h2 class="nino-sectionHeading" style="color: #1f76bc">제품 정보</h2>
+			<h2 class="nino-sectionHeading" >제품 정보</h2>
 			<hr />
-			<div class="slideshow-container">
-				<div class="mySlides">
-					<div class="productInfo">
-						<img src="resources/images/meiri1.jpg" width=190px height=200px>
-						<img src="resources/images/meiri2.jpg" width=190px height=200px>
-						<img src="resources/images/meiri3.jpg" width=190px height=200px>
-						<img src="resources/images/meiri6.jpg" width=190px height=200px>
-					</div>
-				</div>
-
-				<div class="mySlides">
-					<div class="productInfo">
-						<img src="resources/images/meiri6.jpg" width=190px height=200px>
-						<img src="resources/images/meiri7.jpg" width=190px height=200px>
-						<img src="resources/images/meiri8.jpg" width=190px height=200px>
-						<img src="resources/images/meiri1.jpg" width=190px height=200px>
-
-					</div>
-				</div>
-
-				<div class="mySlides">
-					<div class="productInfo">
-						<img src="resources/images/meiri6.jpg" width=190px height=200px>
-						<img src="resources/images/meiri7.jpg" width=190px height=200px>
-						<img src="resources/images/meiri8.jpg" width=190px height=200px>
-						<img src="resources/images/meiri1.jpg" width=190px height=200px>
-					</div>
-				</div>
-
-			</div>
-			<br>
-			<div style="text-align: center">
-				<span class="dot" onclick="currentSlide(1)"></span> <span
-					class="dot" onclick="currentSlide(2)"></span> <span class="dot"
-					onclick="currentSlide(3)"></span>
-			</div>
+		<div class="owl-carousel owl-theme">
+  		<div><img src="resources/images/meiri1.jpg" width=190px height=200px></div>
+ 		 <div><img src="resources/images/meiri2.jpg" width=190px height=200px></div>
+ 		 <div> <img src="resources/images/meiri3.jpg" width=190px height=200px> </div>
+ 		  <div> <img src="resources/images/meiri4.jpg" width=190px height=200px> </div>
+ 		   <div> <img src="resources/images/meiri5.jpg" width=190px height=200px> </div>
+		  <div><img src="resources/images/meiri6.jpg" width=190px height=200px> </div>
+  		<div> <img src="resources/images/meiri7.jpg" width=190px height=200px> </div>
+  		<div><img src="resources/images/meiri8.jpg" width=190px height=200px></div>
+		</div>
 			<hr />
 		</div>
 	</section>
-	<!--/#nino-story-->
+	<script>
+$(document).ready(function(){
+  $('.owl-carousel').owlCarousel({
+	    loop:true,
+	    margin:10,
+	    nav:true,
+	    autoplay:true,
+	    autoplayTimeout:3000,
+	    
+	    responsive:{
+	        0:{
+	            items:1,
+	        },
+	        600:{
+	            items:3,
+	        },
+	        1000:{
+	            items:5,
+	        }
+	    }
+  });
+});
+</script>
 
-	<div class="product-heading">
-		<div class="product-subheading">안녕</div>
-	</div>
 
 
 
@@ -544,7 +573,7 @@ function initMap() {
 	<a href="#" id="nino-scrollToTop">Go to Top</a>
 	
 	 <!-- sidebox -->
-   <div id="sidebox" style="text-align:center"><h4>Sidebar</h4>
+   <div id="sidebox" style="text-align:center">
           <div class="sideboxmenu"><a class="sidebartext" href='<%=request.getContextPath()%>/noticeList.no'">공지사항</a></div>
          <div class="sideboxmenu"><a class="sidebartext" href='<%=request.getContextPath()%>/inquiryList.in'">1:1 문의</a></div>
          <div class="sideboxmenu"><a class="sidebartext" href='<%=request.getContextPath()%>/questionList.qu'">자주묻는질문</a></div>
@@ -569,6 +598,10 @@ function initMap() {
 		src="resources/js/modernizr.custom.97074.js"></script>
 	<script type="text/javascript"
 		src="resources/js/jquery.mCustomScrollbar.concat.min.js"></script>
+	
+	<script type="text/javascript" src="resources/js/owl.carousel.js"></script>
+	<script type="text/javascript" src="resources/js/owl.carousel.min.js"></script>	
+		
 	<script type="text/javascript" src="resources/js/unslider-min.js"></script>
 	<script type="text/javascript" src="resources/js/template.js"></script>
 

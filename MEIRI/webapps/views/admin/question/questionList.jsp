@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+    <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="com.meiri.jsp.admin.question.model.vo.*, java.util.*" %>
 <%@ page import="com.meiri.jsp.common.PageInfo" %>
 <%
@@ -16,17 +16,7 @@
 <meta charset="UTF-8">
 
 <style>
-      .outer{            
-      width : 600px;
-           display: inline-block;
-           margin-left: 350px;
-      }
-      .outer2{            
-      width : 900px;
-           display: inline-block;
-     
-     
-      }
+    
         .menuSection {
             background:white;
             width : 800px;
@@ -78,31 +68,18 @@
         margin-bottom: 70px;
     }
     .answer{
-       border : 1px solid #1f76bc;
+       border: 1px solid #1f76bc;
+ 
+       
        width:750px;
     }
-     .btnArea button{
-    padding: 0 24px;
-   height: 40px;
-   color: white;
-   font-size: 18px;
-   font-weight: 600;
-   background: #1f76bc;
-   border-radius: 25px;
-   border: none;
-   
-   margin-top:25px;
-}
-.btnArea button:hover{
-       cursor:pointer;
-    }  
-    .btnArea{
-       width:1000px;
-    }
+
+ 
 </style>
 <script src="/meiri/resources/js/jquery-3.5.1.min.js"></script>
 </head>
 <body>
+<%@ include file="/views/common/header.jsp" %>
 <br><br><br>
     <div class="main">
        <div class="outer">
@@ -127,7 +104,7 @@
                   &nbsp; A. <%=b.getQanswer() %>  
                </p>
                </div> 
-               <br>&nbsp;   <button onclick="location.href='<%= request.getContextPath() %>/qUpView.qu?qno='+<%=b.getQno()%>">수정하기</button>
+               <br>&nbsp;  <% if( m != null && m.getUserId().equals("admin")){ %> <div><button onclick="location.href='<%= request.getContextPath() %>/qUpView.qu?qno='+<%=b.getQno()%>">수정하기</button></div><% } %>
                <%-- <%= b.getQanswer() %> --%>
       </div>
             <% } %>
@@ -167,12 +144,12 @@
       
       </div> --%>
       
-      <div class="btnArea" align="center"style="margin-top:300px;">
+      <div class="btn" align="center"style="margin-top:80px;">
          
-             <button onclick="location.href='index.jsp'">
+             <button onclick="location.href='index.pl'">
                      돌아가기
                </button>
-            <!--    header 받고 if문 작성 필요 -->
+             <% if( m != null && m.getUserId().equals("admin")){ %>
             <button onclick="location.href='views/admin/question/questionInsertForm.jsp'">
                작성하기
             </button>
@@ -180,7 +157,7 @@
             <button onclick="location.href='views/admin/adminPage.jsp'">
                관리자 페이지
             </button>
-            
+            <%} %>
             <script>
                $(function(){
                   $('#listArea td').mouseenter(function(){
@@ -199,10 +176,13 @@
       
    </div>
 
-
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<%@ include file="/views/common/footer.jsp" %>
 </body>
 </html>
 
 
 
 
+
+    

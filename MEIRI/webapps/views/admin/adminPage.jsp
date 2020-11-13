@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+    <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -37,6 +37,7 @@
          location.href='/meiri/questionList.qu';
       }
       
+      
    </script>
    
    
@@ -49,8 +50,10 @@
                 <i class="fas fa-bars"></i>
             </button>
             <div class="tm-site-header">
-                <div class="mb-3 mx-auto tm-site-logo"><i class="fas fa-times fa-2x"></i></div>            
-                <h1 class="text-center">관리자</h1>
+                <div class="mb-3 mx-auto tm-site-logo" style="background:none;">
+                <a href='<%=request.getContextPath()%>/index.pl' target=_blank><img src="/meiri/resources/images/meiri-logo2.png" alt="" width=90px height=90px"/></a>
+                </div>            
+                <h2 class="text-center">ADMIN PAGE</h2>
             </div>
             <nav class="tm-nav" id="tm-nav">            
                 <ul>
@@ -277,3 +280,4 @@
 
 </body>
 </html>
+    

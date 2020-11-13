@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+    <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="com.meiri.jsp.admin.notice.model.vo.*,
                           java.util.*"%>
                         
@@ -66,11 +66,13 @@
 </head>
 <body>
 
+<%@ include file="/views/common/header.jsp" %>
+
    <div class="outer">
       <br>
       <h2 align="center">공지사항 상세보기</h2>
       <div class="tableArea">
-            <table align="center" width="800px">
+            <table align="center" width="800px" class="detailtable">
                <tr>
                   <td class="attr">제목 </td>
                   <td colspan="5"><span><%= n.getNtitle() %></span></td>
@@ -95,10 +97,13 @@
       <div class="btn" align="center" style="margin-top:60px;">
          <button onclick="location.href='<%= request.getContextPath() %>/noticeList.no'">돌아가기</button>
          <!-- if(m != null && m.getUserName().equals(b.getBwriter())) -->
-      <!-- if문으로 관리자 페이지만 (header 구현 후 작성할 것)-->
+  <% if( m != null && m.getUserId().equals("admin")){ %>
          <button onclick="location.href='<%= request.getContextPath() %>/nUpView.no?nno='+<%=n.getNno()%>">수정하기</button>
+         <%} %>
       </div>
    </div>
-
+<br><br><br><br><br><br><br><br><br><br>
+<%@ include file="/views/common/footer.jsp" %>
 </body>
 </html>
+    

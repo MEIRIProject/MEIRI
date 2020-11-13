@@ -1,10 +1,10 @@
     <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="com.meiri.jsp.cart.model.vo.*,
-    							 java.util.*"%>
+                          java.util.*"%>
     
 <%
-	ArrayList<CartView> cav = 
-		(ArrayList<CartView>)request.getAttribute("cartlist");
+   ArrayList<CartView> cav = 
+      (ArrayList<CartView>)request.getAttribute("cartlist");
 %>
 <!DOCTYPE html>
 <html>
@@ -14,33 +14,53 @@
 <script src="/meiri/resources/js/jquery-3.5.1.min.js"></script>
 <style>
 
-	body{
- 		overflow-x:hidden;
- 		overflow-y:hidden;
-	}
-	
-	.pagingArea button {
-   background: none;
-   border : none; 
-   border-radius : 3px; 
-   font-size : 18px;
    
-	}
+   
+   .container>.container2{
+   align:center;
+   }
+   
+   .pagingArea{
+      padding-top : 3%;
+      width: 100%:
+   }
+   .pagingArea button:active {
+      background: #c5322d;
+      color : white;
+   }
+   
+   .btn10{
+   float:right;
+   background:#2c3e50;
+   color:#f79521;
+   width:130px;
+   border:none;
+   height:50px;
+   border-top
+   }
+   
+   .paytotal{
+   	border : solid 2px #2c3e50;
+   	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+	border-bottom-left-radius: 10px;
+	border-bottom-right-radius: 10px;
 	
-	.pagingArea{
-	   padding-top : 3%;
-	   width: 100%:
-	}
-	.pagingArea button:active {
-	   background: #c5322d;
-	   color : white;
-	}
+	
+   }
+   
+   .paytotal h3{
+   text-align:center;
+   font-size:15px;
+   color:grey;
+   
+   }
 </style>
 
 </head>
 
 <body>
-
+<%@ include file="/views/common/header.jsp" %>
 
 <% int sum=0; %>
    <div>
@@ -48,7 +68,7 @@
       <br><br><br><br><br>
       <br><br><br>
       
-      <div class="container">
+      <div class="container container2">
       <div class="col-lg-9">
          <h2>장바구니</h2>
          <hr>
@@ -98,9 +118,9 @@
                      <input type="hidden" name="p_sum" value="0"></td>
                      <td><input type="hidden" name="u_no" value="user01"/></td>
                      <td>
-						<button onclick="deleteCart(this)">삭제하기</button>
-						<input type="hidden" value="<%= cav.get(i).getCartcode() %>" />
-					</td>
+                  <button onclick="deleteCart(this)">삭제하기</button>
+                  <input type="hidden" value="<%= cav.get(i).getCartcode() %>" />
+               </td>
                      
                      
                   </tr>
@@ -112,10 +132,13 @@
                </tbody>
             </table>
             <hr>
-            <h3 align="right"> 결제금액 : <span id="totalPrice">0</span>
+            <div class="paytotal" style="margin-right:50px;">
+            <h3 align="right">총 결제금액 : <span id="totalPrice">0</span>
+            </div>
             <input type="hidden" name="totalPrice" id="totalPrice" value="0"></h3>
-            <button class="gray_btn" onclick="paymentBasket();">결제</button>
-            
+            <div class="btn">
+            <button class="btn10" onclick="paymentBasket();">주문</button>
+            </div>
            
            
              
@@ -127,23 +150,23 @@
          
          <script>
          function deleteCart(obj){
- 			console.log($(obj).siblings('input').val());
- 			if(confirm("상품을 삭제하시겠습니까?")){
- 				$.ajax({
- 					url : '/meiri/deleteCart.ca',
- 					type : 'post',
- 					data : {
- 						userid : "user01",<!-- m.getUserId() -->
- 						cno : $(obj).siblings('input').val()
- 					}, success : function(data){
- 						alert(data);
- 						window.location.reload();
- 					}, error : function(){
- 						alert("장바구니에 상품 삭제를\n실패했습니다");
- 					}
- 				});
- 			}
- 		};
+          console.log($(obj).siblings('input').val());
+          if(confirm("상품을 삭제하시겠습니까?")){
+             $.ajax({
+                url : '/meiri/deleteCart.ca',
+                type : 'post',
+                data : {
+                   userid : "user01",
+                   cno : $(obj).siblings('input').val()
+                }, success : function(data){
+                   alert(data);
+                   window.location.reload();
+                }, error : function(){
+                   alert("장바구니에 상품 삭제를\n실패했습니다");
+                }
+             });
+          }
+       };
          
          function check(){
              console.log("토탈"+$('#totalPrice').text());
@@ -159,12 +182,12 @@
          
          
          $('input[name=choice]').each(function(){
-        	 $(this).click(function() {
-            	 
-            	 console.log($(this).val());      
+            $(this).click(function() {
+                
+                console.log($(this).val());      
                  
                  console.log($(this).parent().siblings('td').eq(0).text());
-            	 
+                
                  if($(this).parents('tr').find('[name=sendData]') != null){
                      $(this).parents('tr').find('[name=sendData]').remove();
                   }
@@ -188,7 +211,7 @@
                  
                  
                  $(this).parents('tr').append($td);
-            	
+               
              });
          });
         
@@ -198,7 +221,7 @@
          
             
             $(function() {
-            	
+               
             
                var total=0;
                var total2=0;
@@ -223,7 +246,7 @@
          
             
             function paymentBasket() {
-            	$("#basketForm").attr("action","<%=request.getContextPath()%>/cartPay.ca");
+               $("#basketForm").attr("action","<%=request.getContextPath()%>/cartPay.ca");
             }
             
             
@@ -291,12 +314,12 @@
                       }
                      
                      $('input[name=choice]:checked').each(function(){
-                    	
-                        	 
-                        	 console.log($(this).val());      
+                       
+                            
+                            console.log($(this).val());      
                              
                              console.log($(this).parent().siblings('td').eq(0).text());
-                        	 
+                            
                              
                              console.log($(this).parents('tr'));
                              console.log($(this).parents('tr').find('td'));
@@ -317,7 +340,7 @@
                              $td.append('<input type="hidden" name="b_no3" value="'+Number($(this).val())+'">');
                              
                              $(this).parents('tr').append($td);
-                        	
+                           
                         
                      });
                      
@@ -375,6 +398,10 @@
                 
              });
          </script>
+         </div>
+         </div>
+         <br /><br /><br /><br />
+         <%@ include file="/views/common/footer.jsp" %>
 </body>
 </html>
     

@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+    <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="com.meiri.jsp.admin.member.model.vo.*, java.util.*" %>
 <%@ page import="com.meiri.jsp.common.PageInfo" %>
 <%
@@ -18,7 +18,7 @@
 <style>
    .outer{
       width:900px;
-      height:600px;
+      height:min-height;
       background:white;
       color:black;
       margin-left:auto;
@@ -32,7 +32,6 @@
    }
    .tableArea {
       width:750px;
-      height:350px;
       margin-left:auto;
       margin-right:auto;
    }
@@ -56,6 +55,9 @@
    background: #1f76bc;
    border-radius: 25px;
    border: none;
+ }
+ .pagingArea{
+ 	margin-top:30px;
  }
 </style>
 <script src="/meiri/resources/js/jquery-3.5.1.min.js"></script>
@@ -82,6 +84,7 @@
                <th width="150px">연락처</th>
                <th width="150px"></th>
             </tr>
+            <tr style="height:30px;"></tr>
             <% for(Member b : list) { %>
             <tr>
                <!-- 공지사항 DB테이블 보고 만들 예정 -->
@@ -158,19 +161,21 @@
                }
                
                function deleteMember2(obj){
-                  if(confirm("삭제하시겠습니까")){
-                     var userid = $('input[name=userid]').val();
-                     var adminid = $('input[name=adminid]').val();
+                   
+                   if(confirm("삭제하시겠습니까")){
                      
-                     var content = $(obj).parent().parent().siblings()
-                          .last().find('textarea').val();
-                     
-                     location.href = '/meiri/delete.me'
-                        + '?userid='+ userid
-                        + '&content=' + content
-                        + '&aid=' + adminid;
-                  }
-               }
+                      var userid = $(obj).parent().siblings('input[name=userid]').val();
+                      var adminid = $(obj).parent().siblings('input[name=adminid]').val();
+                      
+                      var content = $(obj).parent().parent().siblings()
+                           .last().find('textarea').val();
+                      
+                      location.href = '/meiri/delete.me'
+                         + '?userid='+ userid
+                         + '&content=' + content
+                         + '&aid=' + adminid; 
+                   }
+                }
             </script>
                
       </div>
@@ -184,3 +189,5 @@
 
 
 
+
+    
