@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
+//import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
 import com.meiri.jsp.common.MyRenamePolicy;
 import com.meiri.jsp.review.model.service.ReviewService;
@@ -42,13 +42,13 @@ public class reviewInsertServlet extends HttpServlet {
             int maxSize = 1024 * 1024 * 10; // 10MB
             
             // 2. 멀티파트 전달 확인 
-            if(! ServletFileUpload.isMultipartContent(request)) {
-               request.setAttribute("exception", new Exception("사진 게시글 등록 오류"));
-               request.setAttribute("error-msg", "멀티파트 형식이 아니다.");
-               
-               request.getRequestDispatcher("views/common/errorPage.jsp")
-                                             .forward(request, response);
-            }
+//            if(! ServletFileUpload.isMultipartContent(request)) {
+//               request.setAttribute("exception", new Exception("사진 게시글 등록 오류"));
+//               request.setAttribute("error-msg", "멀티파트 형식이 아니다.");
+//
+//               request.getRequestDispatcher("views/common/errorPage.jsp")
+//                                             .forward(request, response);
+//            }
             
             // 3. 저장할 경로 설정
             String root = request.getServletContext().getRealPath("");
